@@ -11,7 +11,78 @@ also the note that decides, after a Detailed Map Tacks update, whether a change 
 ⚠️ Written twice, in the same pass: this file carries the cause and the reasoning,
 `STEAM_CHANGELOG.bbcode` carries one bullet per change for the Workshop change-note box.
 
-## 0.1 — in progress
+## 0.2 — in progress
+
+### Added
+
+- **A generic tack may sit on coast, navigable river and mountain where the buildings it stands
+  for can.**
+
+  *What the host does today:* `MapTackValidator.isValid` ends with a terrain gate that refuses
+  `TERRAIN_COAST` and `TERRAIN_NAVIGABLE_RIVER` unless `this.waterPlacement` was raised, and
+  `TERRAIN_MOUNTAIN` unless `this.mountainPlacement` was. Both are only ever raised from a real
+  `ConstructibleType` — a `Constructible_ValidTerrains` row, a `RiverPlacement`, or a wonder's
+  `AdjacentToLand`. A generic tack is a pseudo-type the game has never heard of, so every lookup
+  comes back empty, the flag stays false and the gate refuses it.
+
+  *Why change it:* the data disagrees. **12 BUILDING-class constructibles** carry a water
+  `ValidTerrains` row — Lighthouse, Port, Wharf, Shipyard, Fishing Quay, Harbor, the three
+  bridges and walls on coast — plus 3 wonders (Colossus, Hale O Keawe, Statue of Liberty) and 2
+  improvements, and Machu Picchu is valid on `TERRAIN_MOUNTAIN`.
+
+  ⚠️ *The seam is `canPlaceOnTerrain`, not `isValid`.* `isValid` sets `this.waterPlacement = false`
+  on entry and reads it at the end, so there is no way in from outside; `canPlaceOnTerrain` is
+  where the host itself raises the flag and is dispatched through `this`, so it can be replaced
+  on the singleton. Wrapping `isValid` would mean guessing from localised reason strings which
+  check had failed.
+
+  ⚠️ *This answers "could something of this kind stand here", not "is every requirement met".* A
+  Lighthouse also needs `OFF_COAST`, which a generic tack cannot promise — but a tack is a plan,
+  and the behaviour it replaces is a flat "no" on every water tile.
+
+- **The Influence tack now lists example buildings, per age.**
+
+  *What the host does today:* `MapTackGenerics.cacheData` builds each tack's example list from
+  `Constructible_Adjacencies`, and only `if (genericMapTack.adjacencyIds.length > 0)`.
+  `DMT_BUILDING_DIPLOMACY` is declared with `adjacencyIds: []`, so it never gets a list and
+  `getTooltipString` returns undefined — its tooltip shows no examples at all, where Production
+  shows Barracks and Blacksmith.
+
+  *Where the list comes from:* `Constructible_YieldChanges`, the only description of an influence
+  building the data offers, filtered to the current age. Antiquity gives **Monument and Villa**,
+  Exploration **Dungeon and Guildhall**, Modern **Opera House and Radio Station**.
+
+  ⚠️ *Arena is not an influence building* — it pays Happiness +4 and Gold, never Influence.
+  ⚠️ *Basilica is left out* although it pays +3 Influence: it is `UNIQUE`-tagged and only Rome
+  can build it, and the host's own lists contain no uniques either.
+
+  ⚠️ *An existing list is never widened, and a class-wide tack still gets none.* The
+  adjacency-derived lists are right where they exist — Antiquity culture is Amphitheater and
+  Monument — and "everything that pays culture" would be longer and vaguer. `DMT_BUILDING` stands
+  for every building in the age, which is true and useless in a tooltip.
+
+  Patched at the list (`getMatchingConstructibles`) rather than at the tooltip, so everything
+  reading it agrees — including `MapTackUtils.getMapTackTypePlots`, which uses the same list to
+  find which plots you planned a given building on.
+
+### Changed
+
+- **What a generic tack stands for now lives in one module**, `ui/host/generic-tacks.js`, shared
+  by the three changes that need it. It was inlined in the clearing change; the terrain and
+  example-list changes ask the same question, and three answers that could drift apart is one too
+  many. Memoised per age, keyed on `Game.age`.
+
+  ⚠️ One behaviour change falls out: the class-wide `DMT_BUILDING` tack is now age-filtered,
+  matching the host's own `cacheData`. A tack is a plan for this age.
+
+- **`INTEGRATING.md`**, written for wltk: where each change goes in Detailed Map Tacks' own
+  source, the minimal edit, which guards are worth keeping and why, and the data behind each one
+  — the water-terrain table, the influence buildings per age, and the two facts that are easy to
+  get wrong (Arena pays no Influence; Basilica is `UNIQUE`). It is written so the source of this
+  mod never has to be read: most of what is here exists only because an add-on cannot edit
+  someone else's files, and inside the host it collapses to a handful of lines.
+
+## 0.1
 
 Two optional changes, both switchable, plus the groundwork under them.
 

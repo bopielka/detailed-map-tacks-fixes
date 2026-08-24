@@ -19,7 +19,7 @@
     xmlns="ModInfo">
     <Properties>
         <Name>LOC_MOD_NAJANE_MAP_TACKS_NAME</Name>
-        <Version>0.1</Version>
+        <Version>0.2</Version>
         <Description>LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION</Description>
         <Authors>Najane</Authors>
         <Package>Mod</Package>

@@ -30,7 +30,7 @@ Then the module documents, which mirror the folders under `ui/`:
 |---|---|---|
 | 05 | [support](05-support.md) | `ui/support/` — logging, the build stamp |
 | 06 | [engine](06-engine.md) | `ui/engine/` — talking to the game, stored settings |
-| 07 | [host](07-host.md) | `ui/host/` — the single translation layer to the host mod |
+| 07 | [host](07-host.md) | `ui/host/` — the translation layer to the host mod, and what a generic tack stands for |
 | 08 | [patches](08-patches.md) | `ui/patches/` — the changes, and how to add one |
 | 09 | [options and persistence](09-options-and-persistence.md) | `ui/options/`, the master switch |
 | 10 | [localisation](10-localisation.md) | `text/<locale>/` |

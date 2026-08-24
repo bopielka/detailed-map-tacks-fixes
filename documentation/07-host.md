@@ -1,6 +1,7 @@
 # 07 — `ui/host/`
 
-One file: `detailed-map-tacks.js`. It is the **only** place in this mod that names the host.
+Two files. `detailed-map-tacks.js` is the **only** place in this mod that names the host;
+`generic-tacks.js` is the single answer to "what does a generic tack stand for".
 
 What is in it, and why the whole layer exists, is in [04 — The host mod](04-the-host-mod.md);
 this document is about using it.
@@ -65,3 +66,40 @@ cannot change afterwards, because scripts are loaded once per session.
 applying without the host. Reaching it means the host failed to load, and that is the entire
 explanation for "the changes mod does nothing", so `startPatches()` says so with `warn` rather
 than `log`.
+
+## `generic-tacks.js`
+
+The host's generic tacks are **pseudo-types**: `DMT_BUILDING_CULTURE` and friends are not in
+`GameInfo.Constructibles`, so every table keyed by `ConstructibleType` misses them. That one
+fact is behind three of this mod's four changes — the host cannot clear a tack it cannot name,
+cannot check terrain for a type with no rows, and cannot list examples for a tack with no
+adjacencies. Answering the question once, here, is what stops the three drifting apart.
+
+| Export | Answers |
+|---|---|
+| `loadGenericTacks()` | Resolves the host modules this needs; `false` if the host did not hand them over |
+| `isGenericTack(type)` | Is this one of the pseudo-types? ⚠️ `BUILDING_CITY_HALL` is registered as a generic tack but IS a real constructible, so it is excluded |
+| `membersOf(type)` | Every real constructible the tack is a stand-in for |
+| `standsFor(type, constructible)` | Membership test, used by the clearing change |
+| `terrainsFor(type)` | Every terrain at least one member explicitly allows |
+| `representativesFor(type)` | The list the tack is **shown** to stand for — its tooltip |
+
+### ⚠️ `membersOf` and `representativesFor` are different questions
+
+`membersOf` is "what would fulfil this?" and includes civ-uniques and, for a class-wide tack,
+every building in the age. `representativesFor` is "what should the player be shown?" — a
+class-wide tack gets an empty list there, because "all forty buildings" is true and useless in a
+tooltip, and uniques are dropped because a player who is not that civ cannot build them.
+Conflating the two would either wreck the tooltip or under-clear tacks.
+
+### ⚠️ An empty `terrainsFor` does not mean "nowhere"
+
+It means no member names a terrain at all, which in the host's `canPlaceOnTerrain` is
+*unrestricted*. Only the presence of a terrain in that set is information; its absence is not.
+
+### ⚠️ Memoised per age, keyed on `Game.age`
+
+The lists come from `GameInfo`, which is stable within an age and not across one. They are
+wanted per tack per plot update, and `DMT_BUILDING` alone walks every constructible in the game
+to build its list — so this cannot be recomputed on demand, and it cannot be computed once
+either.

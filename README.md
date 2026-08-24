@@ -1,8 +1,8 @@
 # Detailed Map Tacks Tweaks by Najane
 
 An **add-on** for the Civilization VII mod **[Detailed Map Tacks](https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712)**
-by **wltk**. It changes two things about how map tacks behave. It is **not a replacement** for
-that mod and does nothing on its own.
+by **wltk**. It changes a handful of things about how map tacks behave. It is **not a replacement** for that
+mod and does nothing on its own.
 
 - **Requires:** Detailed Map Tacks. Declared as a hard dependency, so with the host missing or
   disabled this mod simply does not apply — no errors, no half-working screens.
@@ -26,15 +26,31 @@ tack on left-click and only while the tack chooser is open — its source carrie
 "TODO: Come up with a better quicker deletion solution." The click is swallowed, so deleting a
 tack does not also send your selected unit walking to that tile.
 
+**A generic tack can be placed on coast, navigable river and mountain.** Those tiles are refused
+for a generic tack because terrain can only be checked for a named building — but 12 buildings
+belong on water (Lighthouse, Port, Wharf, Shipyard, Fishing Quay, Harbor, the three bridges,
+coastal walls), along with three wonders, two improvements, and Machu Picchu on a mountain.
+
+**The Influence tack shows example buildings, and they follow the age.** Every other generic tack
+lists a couple in its tooltip — Production shows Barracks and Blacksmith — but Influence showed
+none. The list now comes from what actually pays Influence: Monument and Villa in Antiquity,
+Dungeon and Guildhall in Exploration, Opera House and Radio Station in Modern.
+
 ⚠️ Neither of these is a bug report. Whether a generic tack should clear at all is a design
 call, and the deletion shortcut is a note wltk already left. Both are optional and both can be
 switched off — see below.
 
 ## For wltk
 
-**If you want either change in Detailed Map Tacks itself, please take it.** The whole source is
-in this repository, no attribution needed and no permission to ask for. I would rather this mod
+**If you want any of this in Detailed Map Tacks itself, please take it.** The whole source is in
+this repository, no attribution needed and no permission to ask for. I would rather this mod
 became unnecessary than kept existing.
+
+**[`INTEGRATING.md`](INTEGRATING.md) is written for exactly that** — where each change goes in
+your source, what the minimal edit is, which guards are worth keeping and why, and the data
+behind each one. It is written so you never have to read this mod's code: most of what is here
+exists only because an add-on cannot edit your files, and inside Detailed Map Tacks it collapses
+to a handful of lines.
 
 <https://github.com/bopielka/detailed-map-tacks-fixes>
 

@@ -1,6 +1,6 @@
 [h1]Detailed Map Tacks Tweaks by Najane[/h1]
 
-An [b]add-on[/b] for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712][b]Detailed Map Tacks[/b] by wltk[/url]. It changes two things about how map tacks behave. Both are optional and both can be switched off.
+An [b]add-on[/b] for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712][b]Detailed Map Tacks[/b] by wltk[/url]. It changes a handful of things about how map tacks behave. All of it is optional and can be switched off.
 
 [b]It is not a replacement and it does nothing on its own.[/b] Detailed Map Tacks is required, and this mod declares it as a hard dependency - if that mod is missing or switched off, this one quietly does not apply rather than filling your log with errors.
 
@@ -8,6 +8,8 @@ An [b]add-on[/b] for [url=https://steamcommunity.com/sharedfiles/filedetails/?id
 [list]
 [*] [b]A generic map tack disappears once something that fulfils it is built.[/b] Detailed Map Tacks clears a tack when the building it names is finished on that tile, but it compares the two type names as text - so only a tack for one specific building ever matches. A "culture building", "wonder" or "improvement" tack has no single name to match and stays on the map. This clears it using the same list of buildings the tack's own tooltip already shows you, plus the game's type tags for civ-unique buildings.
 [*] [b]Right-click a map tack on the map to delete it.[/b] On its own, Detailed Map Tacks deletes a tack on left-click and only while the tack chooser is open - its source carries wltk's own "TODO: Come up with a better quicker deletion solution." The click is swallowed, so deleting a tack does not also send your selected unit walking to that tile.
+[*] [b]A generic tack can be placed on coast, navigable river and mountain.[/b] Those tiles are refused for a generic tack because terrain can only be checked for a named building - but 12 buildings belong on water (Lighthouse, Port, Wharf, Shipyard, Fishing Quay, Harbor, the bridges, coastal walls), along with three wonders, two improvements, and Machu Picchu on a mountain.
+[*] [b]The Influence tack shows example buildings, and they follow the age.[/b] Every other generic tack lists a couple in its tooltip - Production shows Barracks and Blacksmith - but Influence showed none. The list now comes from what actually pays Influence: Monument and Villa in Antiquity, Dungeon and Guildhall in Exploration, Opera House and Radio Station in Modern.
 [/list]
 
 Walls and other slotless buildings do not clear a tack, and a unique quarter tack waits for both of its buildings: a plan is only cleared once it is genuinely finished.
@@ -20,7 +22,7 @@ Both live under a [b]Detailed Map Tacks[/b] heading in [b]Options - Mods[/b], so
 [/list]
 
 [h2]For wltk[/h2]
-These are [b]suggestions, not corrections[/b] - whether a generic tack should clear at all is a design call, and the deletion shortcut is the note you already left yourself. [b]If you want either change in Detailed Map Tacks itself, please take it.[/b] The whole source is here, no attribution needed and no permission to ask for:
+These are [b]suggestions, not corrections[/b] - whether a generic tack should clear at all is a design call, and the deletion shortcut is the note you already left yourself. [b]If you want any of this in Detailed Map Tacks itself, please take it.[/b] The whole source is here, no attribution needed and no permission to ask for:
 
 [url=https://github.com/bopielka/detailed-map-tacks-fixes]https://github.com/bopielka/detailed-map-tacks-fixes[/url]
 

@@ -2,7 +2,11 @@
 
 ## In one line
 
-It changes two things about how **Detailed Map Tacks** by wltk behaves. Both are optional.
+It changes four things about how **Detailed Map Tacks** by wltk behaves. All of it is optional.
+
+⚠️ Three of the four come from **one** fact: a generic tack is a pseudo-type the game has never
+heard of, so every table keyed by `ConstructibleType` misses it. `ui/host/generic-tacks.js` is
+the single answer to "what does this tack stand for", and all three read it.
 
 ⚠️ **Neither is a bug report.** Whether a generic tack should clear at all is wltk's design
 call, and the deletion shortcut is a note wltk already left in the source. Keep that framing in
@@ -14,6 +18,8 @@ every document here — it is what makes these usable as suggestions rather than
 |---|---|---|
 | A generic tack is cleared once something that fulfils it is built | Its auto-removal compares tack type to built type as **strings**, so only a concrete tack ever matches | `ui/patches/generic-tack-cleanup.js` |
 | Right-click a tack on the map to delete it | Deleting works on left-click only, and only while the chooser is open — wltk's own `// TODO: Come up with a better quicker deletion solution.` | `ui/patches/right-click-remove.js` |
+| A generic tack may sit on coast, navigable river and mountain | Its terrain gate needs a flag only a real `ConstructibleType` can raise, so a pseudo-type is refused everywhere on water | `ui/patches/generic-tack-terrain.js` |
+| The Influence tack lists example buildings, per age | It builds example lists from adjacencies only, and `DMT_BUILDING_DIPLOMACY` declares none — so its tooltip shows nothing | `ui/patches/generic-tack-representatives.js` |
 
 Every change added later gets a row here, a `{ name, start }` entry in `ui/patches/patches.js`,
 and an entry in `CHANGELOG.md` that names the host's behaviour rather than only the remedy — that is

@@ -15,6 +15,8 @@
 import { isHostModPresent, HOST_MOD_ID } from '../host/detailed-map-tacks.js';
 import { startGenericTackCleanup } from './generic-tack-cleanup.js';
 import { startRightClickRemove } from './right-click-remove.js';
+import { startGenericTackTerrain } from './generic-tack-terrain.js';
+import { startGenericTackRepresentatives } from './generic-tack-representatives.js';
 import { areChangesEnabled } from '../engine/changes-setting.js';
 import { log, warn } from '../support/diagnostics.js';
 
@@ -25,6 +27,8 @@ import { log, warn } from '../support/diagnostics.js';
 const CHANGES = [
     { name: 'clear generic tacks once what they stand for is built', start: startGenericTackCleanup },
     { name: 'delete a tack from the map with right-click', start: startRightClickRemove },
+    { name: 'let a generic tack sit on water and mountain where its members can', start: startGenericTackTerrain },
+    { name: 'give the Influence tack the example buildings it has none of', start: startGenericTackRepresentatives },
 ];
 
 export function startPatches() {
