@@ -17,7 +17,7 @@
  * ⚠️ Drop this patch if a Detailed Map Tacks update starts clearing generic pins itself.
  */
 import { loadHostModule } from '../host/detailed-map-tacks.js';
-import { onEngineEvents, stopEngineEvents } from '../engine/events.js';
+import { onEngineEvent } from '../engine/events.js';
 import { log, warn } from '../support/diagnostics.js';
 
 /**
@@ -32,7 +32,6 @@ const CLASS_WIDE = new Set(['DMT_BUILDING', 'DMT_WONDER', 'DMT_IMPROVEMENT']);
 const UNIQUE_QUARTER = 'DMT_BUILDING_UNIQUE_QUARTER';
 
 let host = null;
-let handles = null;
 
 /**
  * ⚠️ Built on the first event, not at load: it reads `GameInfo`, and the host fills the data
@@ -213,13 +212,8 @@ export function startGenericTackCleanup() {
             warn(`generic tack cleanup is off - the host did not give up: ${missing.join(', ')}`);
             return;
         }
-        handles = onEngineEvents(['ConstructibleAddedToMap'], onConstructibleAdded, { localPlayerOnly: false });
+        onEngineEvent('ConstructibleAddedToMap', onConstructibleAdded);
         log('generic tack cleanup is listening');
     });
 }
 
-/** Not called yet; the mod has no path that stops a fix. Here so the handle is not orphaned. */
-export function stopGenericTackCleanup() {
-    stopEngineEvents(handles);
-    handles = null;
-}

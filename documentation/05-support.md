@@ -22,22 +22,19 @@ Choosing between them: `warn` for anything a player might have to report or that
 silence — a missing host, a fix that failed to start, the build stamp. `log` for everything
 else. ⚠️ **Set `DIAGNOSTICS = false` before publishing.**
 
-## `dom.js`
+## There is no `dom.js`
 
-`clearChildren`, `appendAll`, `ensureStyle`, `makeElement`.
+⚠️ Deliberately. Both sibling mods have one; this mod draws nothing of its own — its two fixes
+work through the host's data and the host's own components — so a DOM helper module here would
+be four functions nobody calls. When a fix first builds an element, port what it needs from
+`../better-commerce-screen-ui/ui/support/dom.js`, which carries the facts that matter:
+`replaceChildren` throws in this DOM, `appendChild` is the reliable append, and
+`data-tooltip-content` must go through one door so a "hide tooltips" option stays possible.
 
-⚠️ **This DOM has no `replaceChildren`** — calling it throws, which is the whole reason
-`clearChildren` exists. `appendAll` skips falsy children deliberately, so a builder that
-returns `null` when a thing is switched off does not need a guard at every call site.
-
-⚠️ When this mod first hangs a tooltip on something, port `setTooltip` from the sibling mods
-rather than writing `data-tooltip-content` at the call site. One door is what makes a "hide
-this mod's tooltips" option possible later without visiting a dozen files — and in those mods
-that lesson cost a dozen call sites across ten files.
-
-⚠️ CSS lives in template literals, so **a backtick inside one — including inside a `/* */`
-comment — closes the string** and the module fails to load, taking the whole mod with it. Use
-quotes in CSS comments. `deploy.sh` checks for this by name.
+⚠️ CSS in these mods lives in template literals, so **a backtick inside one — including inside
+a `/* */` comment — closes the string** and the module fails to load, taking the whole mod with
+it. Use quotes in CSS comments. `deploy.sh` checks for this by name, and will keep checking
+whether or not this mod has any CSS yet.
 
 ## `build-stamp.js`
 

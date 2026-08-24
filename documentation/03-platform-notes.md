@@ -92,13 +92,15 @@ missing registration shows up in `UI.log` as `Failed to open file`.
 
 ## DOM quirks
 
-- ⚠️ **No `replaceChildren`** — calling it throws. `clearChildren` in `ui/support/dom.js`.
-- ⚠️ `appendChild` is the reliable append. `appendAll` skips falsy children on purpose.
+- ⚠️ **No `replaceChildren`** — calling it throws. Empty containers by hand.
+- ⚠️ `appendChild` is the reliable append.
 - ⚠️ An injected `div` does **not** receive the engine's `mousebutton-left` action, which is
   what the screens' own `Activatable` reacts to. Native DOM events do arrive — wire those, and
   `stopPropagation`, or whatever is underneath treats the click as its own. The sibling mods'
   `bindActivatable` is the worked version; port it when this mod first injects something
-  clickable.
+  clickable. ⚠️ For an input the WORLD would otherwise act on, the answer is different and is
+  in `ui/patches/right-click-remove.js`: listen for `engine-input` on the component and call
+  `preventDefault()`, which is where `ContextManager.handleInput` abandons the chain.
 
 ## Engine quirks
 

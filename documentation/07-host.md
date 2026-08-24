@@ -10,9 +10,8 @@ this document is about using it.
 | Export | For |
 |---|---|
 | `HOST_MOD_ID` | `'detailed-map-tacks'` |
-| `HOST_MODULES` | Path per host module, keyed: `store`, `utils`, `uiUtils`, `generics`, `validator`, `yield`, `constants`, `iconsManager` |
-| `HOST_COMPONENTS` | The component names to decorate |
-| `HOST_INTERFACE_MODES`, `HOST_LENS` | The host's interface modes and lens |
+| `HOST_MODULES` (module-local) | Path per host module: `store`, `utils`, `generics`, `changeProcessor` |
+| `HOST_COMPONENTS` | `icons` — `dmt-map-tack-icons`, the component this mod decorates |
 | `isHostModPresent()` | Is the host actually running |
 | `loadHostModule(key)` | A host module, or `null`, asynchronously |
 
@@ -47,7 +46,9 @@ patches the running host. A *different spelling of the same file* is a second mo
 second singleton, and a patch applied to it does nothing at all, silently.
 
 That is why every path lives in this one map. **Add a key here rather than writing a path into
-a patch.**
+a patch.** ⚠️ Only the four modules something actually loads are listed; the host has more
+(validator, yield, ui-utils, constants, icons-manager) and they are mapped in
+[04 — The host mod](04-the-host-mod.md). Add one here when a fix reaches for it, not before.
 
 ## `isHostModPresent()`
 

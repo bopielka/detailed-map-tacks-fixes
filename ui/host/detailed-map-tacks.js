@@ -24,43 +24,31 @@ export const HOST_MOD_ID = 'detailed-map-tacks';
 
 /**
  * The host's own modules, addressed the way the game addresses a mod's files.
- * ⚠️ Spelling is identity - see the header. Add to this map rather than writing a path
- * into a patch.
+ * ⚠️ Spelling is identity - see the header. Add a key here rather than writing a path into a
+ * patch. The host has more modules than these four (validator, yield, ui-utils, constants,
+ * icons-manager); they are listed in documentation/04-the-host-mod.md and belong here only
+ * once something actually loads one.
  */
-export const HOST_MODULES = {
+const HOST_MODULES = {
     store: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-store.js`,
     utils: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-utils.js`,
-    uiUtils: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-ui-utils.js`,
     generics: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-generics.js`,
-    validator: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-validator.js`,
-    yield: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-yield.js`,
-    constants: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-constants.js`,
     changeProcessor: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-change-processor.js`,
-    iconsManager: `/${HOST_MOD_ID}/ui/plot-icons/dmt-map-tack-icons-manager.js`,
 };
 
 /**
- * The components the host defines with `Controls.define`. These are the seams a patch
- * should prefer: `Controls.decorate` on one of them needs no import, cannot fail at load
- * time, and does not care whether this mod ran before or after the host - the component
- * entry is created on demand if it is not there yet.
+ * The components the host defines with `Controls.define`. These are the seams a patch should
+ * prefer: `Controls.decorate` on one of them needs no import, cannot fail at load time, and
+ * does not care whether this mod ran before or after the host - the component entry is created
+ * on demand if it is not there yet.
+ *
+ * ⚠️ Plural. `MAP_TACK_ELEMENT_NAME` in the host is "dmt-map-tack-icons" - one component per
+ * PLOT, holding every tack on it, not one per tack. The host's other two components
+ * (dmt-panel-place-map-tack, dmt-map-tack-chooser) are in documentation/04-the-host-mod.md.
  */
 export const HOST_COMPONENTS = {
-    placePanel: 'dmt-panel-place-map-tack',
-    chooser: 'dmt-map-tack-chooser',
-    // ⚠️ Plural. `MAP_TACK_ELEMENT_NAME` in the host is "dmt-map-tack-icons" - one component
-    // per PLOT, holding every tack on it, not one per tack.
     icons: 'dmt-map-tack-icons',
 };
-
-/** The host's interface modes, by the names it registers in data/interface-modes.xml. */
-export const HOST_INTERFACE_MODES = {
-    chooser: 'DMT_INTERFACEMODE_MAP_TACK_CHOOSER',
-    place: 'DMT_INTERFACEMODE_PLACE_MAP_TACKS',
-};
-
-/** The host's lens, as other mods address it. */
-export const HOST_LENS = 'dmt-map-tack-lens';
 
 /**
  * Is the host actually running?

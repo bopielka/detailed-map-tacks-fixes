@@ -120,9 +120,10 @@ Three choke points worth knowing before writing anything new:
 - **`ui/host/detailed-map-tacks.js`** — every path, component name and interface mode of the
   host, plus `loadHostModule()`.
 - **`ui/engine/events.js`** — every `engine.on` in the mod. One engine subscription per event
-  name however many listeners want it, and the "is this event even mine?" filter. Engine
-  events are raised for **every player in the game**; a handler that does not filter runs
-  thousands of times per AI turn.
+  name however many listeners want it. Engine events are raised for **every player in the
+  game**, so a handler must rule an event out cheaply and early; ⚠️ there is no owner filter
+  here on purpose — the one subscriber checks the plot first, which is cheaper. Port
+  `onLocalPlayerEvent` from `../better-commerce-screen-ui` if a fix needs a real one.
 
 ## Rules that are easy to break
 
@@ -160,8 +161,8 @@ finished**, and the answer goes in the `⚠️` comment beside it.
 What to check, in the order these have actually bitten:
 
 - **Is it on an engine event?** Events are raised for **every player**; `UnitMoved` and
-  friends arrive in their thousands per AI turn. Subscribe through `ui/engine/events.js` and
-  filter.
+  friends arrive in their thousands per AI turn. Subscribe through `ui/engine/events.js`, and
+  make the first question the cheapest one that rules the event out.
 - **Does it run per plot icon, per frame or per DOM mutation?** Map tacks are drawn per plot;
   the host already walks its whole tack list on several events. Anything added inside that
   walk is multiplied by the number of tacks the player has placed.
@@ -175,6 +176,11 @@ What to check, in the order these have actually bitten:
 ⚠️ **Measure rather than assume, and say what you measured.** `logEventStats()` (diagnostics
 on) prints per-event counts and cost. A `⚠️` note carrying a real number is worth more than
 one carrying an opinion.
+
+⚠️ **Nothing here is kept "for later".** There is no `dom.js`, no `storedChoice`, no owner
+filter and no unsubscribe path, because nothing calls them. Each of those exists in
+`../better-commerce-screen-ui`, is named in `documentation/` where it would go, and is a copy
+away when a fix first needs it. Add the facility with the caller, not before it.
 
 ## Comments
 

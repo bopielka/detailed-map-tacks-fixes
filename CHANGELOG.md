@@ -74,6 +74,17 @@ whether the patch can be dropped or has to be re-checked.
   ⚠️ *The option is read per click, not at registration.* The decorator is registered whatever
   the setting says — deciding at load would leave the option doing nothing until a restart.
 
+### Removed
+
+- **Everything nothing reached.** `ui/support/dom.js` (four helpers, no caller — this mod draws
+  nothing of its own), `storedChoice`, the engine-events owner filter and `stopEngineEvents`,
+  the two setting-changed events nothing listened to, `stopGenericTackCleanup`, and the host
+  paths and component names no patch loads. 829 lines of `ui/` left, all of it reached.
+
+  ⚠️ Each of those exists in `../better-commerce-screen-ui`, is named in `documentation/` at
+  the place it would go, and is a copy away. Kept-for-later code cannot be tested and quietly
+  stops matching the mod it was copied from.
+
 ### Groundwork
 
 - **New mod.** An add-on to Detailed Map Tacks by wltk, structured as `support → engine →
