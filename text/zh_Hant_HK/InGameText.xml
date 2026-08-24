@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="zh_Hant_HK">
+            <Text>套用 Detailed Map Tacks 修復</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="zh_Hant_HK">
+            <Text>無須移除即可關閉本模組的全部修復。若 Detailed Map Tacks 更新後地圖圖釘出現異常，請先嘗試此項。</Text>
+        </Row>
+    </LocalizedText>
+</Database>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Non-English text uses <LocalizedText> with an explicit Language attribute.
+    <EnglishText> here would be inserted as en_US regardless of the folder name and
+    collide with text/en_us/ModInfoText.xml:
+        ERROR: Database: UNIQUE constraint failed: LocalizedText.ModRowId, Tag, Locale
+-->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="de_DE">
+            <Text>Detailed Map Tacks Fixes by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="de_DE">
+            <Text>Fehlerbehebungen und kleine Verbesserungen für „Detailed Map Tacks“ von wltk. Diese Mod wird benötigt – allein bewirkt diese hier nichts. Nur Benutzeroberfläche; es werden keine Spielregeln geändert.</Text>
+        </Row>
+    </LocalizedText>
+</Database>

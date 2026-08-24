@@ -1,0 +1,17 @@
+# System
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local files
+scratch/
+*.log
+
+# Written by the deploy scripts on every deploy; the value is never source.
+ui/support/build-stamp.js

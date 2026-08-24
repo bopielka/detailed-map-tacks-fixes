@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="pl_PL">
+            <Text>Stosuj poprawki do Detailed Map Tacks</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="pl_PL">
+            <Text>Wyłącza wszystkie poprawki tego moda bez odinstalowywania go. To pierwsza rzecz do sprawdzenia, jeśli pinezki zaczynają działać dziwnie po aktualizacji Detailed Map Tacks.</Text>
+        </Row>
+    </LocalizedText>
+</Database>

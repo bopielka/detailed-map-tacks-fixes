@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME">
+            <Text>Detailed Map Tacks Fixes by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION">
+            <Text>Fixes and small improvements for "Detailed Map Tacks" by wltk. That mod is required - this one does nothing on its own. UI only; no game rules are changed.</Text>
+        </Row>
+    </EnglishText>
+</Database>

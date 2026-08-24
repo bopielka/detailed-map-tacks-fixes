@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="it_IT">
+            <Text>Applica le correzioni di Detailed Map Tacks</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="it_IT">
+            <Text>Disattiva tutte le correzioni di questa mod senza disinstallarla. È la prima cosa da provare se le puntine iniziano a comportarsi male dopo un aggiornamento di Detailed Map Tacks.</Text>
+        </Row>
+    </LocalizedText>
+</Database>

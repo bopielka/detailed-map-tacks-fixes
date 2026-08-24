@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    An ADD-ON, not a stand-alone mod. It patches "Detailed Map Tacks" by wltk and does
+    nothing on its own.
+
+    ⚠️ <Dependencies> is what makes that true rather than merely intended: the game will
+    not apply this mod's components unless detailed-map-tacks is installed and enabled, so
+    a player who has only this one gets nothing instead of a wall of errors. Do not move
+    detailed-map-tacks down to <References> - that is the soft form, and it would let this
+    mod load alone.
+
+    ⚠️ version on <Mod> must be an integer >= 1. It is parsed as an int, so version="0.1"
+    lands in Mods.sqlite as Version 0 and the game then silently refuses to apply the mod:
+    it is discovered, it shows as enabled in the Mods menu, and it never appears in
+    Modding.log's "enabled mods" list. The human-readable version lives in
+    <Properties><Version> below, which is a free-form string.
+-->
+<Mod id="detailed-map-tacks-fixes-by-najane" version="1"
+    xmlns="ModInfo">
+    <Properties>
+        <Name>LOC_MOD_NAJANE_MAP_TACKS_NAME</Name>
+        <Version>0.1</Version>
+        <Description>LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION</Description>
+        <Authors>Najane</Authors>
+        <Package>Mod</Package>
+        <AffectsSavedGames>0</AffectsSavedGames>
+        <ShowInBrowser>1</ShowInBrowser>
+    </Properties>
+    <Dependencies>
+        <Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" />
+        <!-- The host mod. Without it this mod has nothing to patch; see the note above. -->
+        <Mod id="detailed-map-tacks" title="LOC_MOD_DETAILED_MAP_TACKS_NAME" />
+    </Dependencies>
+    <ActionCriteria>
+        <Criteria id="always">
+            <AlwaysMet></AlwaysMet>
+        </Criteria>
+    </ActionCriteria>
+    <ActionGroups>
+        <ActionGroup id="najane-map-tacks-ui" scope="game" criteria="always">
+            <Properties>
+                <!-- ⚠️ Above detailed-map-tacks, which declares no LoadOrder at all and so
+                     sits at the default. A patch that runs BEFORE the thing it patches
+                     defines is a patch that silently does nothing. Controls.decorate is
+                     order-independent (it creates the component entry if it is missing),
+                     but nothing else here is - so load last and stop thinking about it. -->
+                <LoadOrder>2000</LoadOrder>
+            </Properties>
+            <Actions>
+                <UpdateText>
+                    <Item>text/en_us/InGameText.xml</Item>
+                    <Item locale="de_DE">text/de_DE/InGameText.xml</Item>
+                    <Item locale="es_ES">text/es_ES/InGameText.xml</Item>
+                    <Item locale="fr_FR">text/fr_FR/InGameText.xml</Item>
+                    <Item locale="it_IT">text/it_IT/InGameText.xml</Item>
+                    <Item locale="ja_JP">text/ja_JP/InGameText.xml</Item>
+                    <Item locale="ko_KR">text/ko_KR/InGameText.xml</Item>
+                    <Item locale="pl_PL">text/pl_PL/InGameText.xml</Item>
+                    <Item locale="pt_BR">text/pt_BR/InGameText.xml</Item>
+                    <!-- ru_RU holds UKRAINIAN text; see the note in the file. -->
+                    <Item locale="ru_RU">text/ru_RU/InGameText.xml</Item>
+                    <Item locale="zh_Hans_CN">text/zh_Hans_CN/InGameText.xml</Item>
+                    <Item locale="zh_Hant_HK">text/zh_Hant_HK/InGameText.xml</Item>
+                </UpdateText>
+                <UIScripts>
+                    <Item>ui/options/najane-map-tacks-options.js</Item>
+                    <Item>ui/detailed-map-tacks-fixes.js</Item>
+                </UIScripts>
+            </Actions>
+        </ActionGroup>
+        <!--
+            The options screen exists in the main menu as well as in game, so the options
+            module has to be registered in both scopes or the checkbox disappears from one
+            of them. Nothing else belongs in the shell - there is no game there.
+        -->
+        <ActionGroup id="najane-map-tacks-shell" scope="shell" criteria="always">
+            <Properties>
+                <LoadOrder>2000</LoadOrder>
+            </Properties>
+            <Actions>
+                <UpdateText>
+                    <Item>text/en_us/InGameText.xml</Item>
+                    <Item locale="de_DE">text/de_DE/InGameText.xml</Item>
+                    <Item locale="es_ES">text/es_ES/InGameText.xml</Item>
+                    <Item locale="fr_FR">text/fr_FR/InGameText.xml</Item>
+                    <Item locale="it_IT">text/it_IT/InGameText.xml</Item>
+                    <Item locale="ja_JP">text/ja_JP/InGameText.xml</Item>
+                    <Item locale="ko_KR">text/ko_KR/InGameText.xml</Item>
+                    <Item locale="pl_PL">text/pl_PL/InGameText.xml</Item>
+                    <Item locale="pt_BR">text/pt_BR/InGameText.xml</Item>
+                    <!-- ru_RU holds UKRAINIAN text; see the note in the file. -->
+                    <Item locale="ru_RU">text/ru_RU/InGameText.xml</Item>
+                    <Item locale="zh_Hans_CN">text/zh_Hans_CN/InGameText.xml</Item>
+                    <Item locale="zh_Hant_HK">text/zh_Hant_HK/InGameText.xml</Item>
+                </UpdateText>
+                <UIScripts>
+                    <Item>ui/options/najane-map-tacks-options.js</Item>
+                </UIScripts>
+            </Actions>
+        </ActionGroup>
+    </ActionGroups>
+    <LocalizedText>
+        <File>text/en_us/ModInfoText.xml</File>
+        <File>text/de_DE/ModInfoText.xml</File>
+        <File>text/es_ES/ModInfoText.xml</File>
+        <File>text/fr_FR/ModInfoText.xml</File>
+        <File>text/it_IT/ModInfoText.xml</File>
+        <File>text/ja_JP/ModInfoText.xml</File>
+        <File>text/ko_KR/ModInfoText.xml</File>
+        <File>text/pl_PL/ModInfoText.xml</File>
+        <File>text/pt_BR/ModInfoText.xml</File>
+        <!-- ru_RU holds UKRAINIAN text; see the note in the file. -->
+        <File>text/ru_RU/ModInfoText.xml</File>
+        <File>text/zh_Hans_CN/ModInfoText.xml</File>
+        <File>text/zh_Hant_HK/ModInfoText.xml</File>
+    </LocalizedText>
+</Mod>

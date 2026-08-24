@@ -1,0 +1,7 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Shell scripts must stay LF. With `text=auto` + core.autocrlf=true Git rewrites them
+# to CRLF in the working copy, and on macOS `#!/usr/bin/env bash` + CR is "bad interpreter" -
+# which is exactly how deploy-on-mac.sh ended up unrunnable there.
+*.sh text eol=lf

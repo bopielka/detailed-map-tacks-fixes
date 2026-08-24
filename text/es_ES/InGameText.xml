@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="es_ES">
+            <Text>Aplicar las correcciones de Detailed Map Tacks</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="es_ES">
+            <Text>Desactiva todas las correcciones de este mod sin desinstalarlo. Es lo primero que conviene probar si las chinchetas empiezan a comportarse mal tras una actualización de Detailed Map Tacks.</Text>
+        </Row>
+    </LocalizedText>
+</Database>
