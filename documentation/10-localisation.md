@@ -41,6 +41,7 @@ ERROR: Database: UNIQUE constraint failed: LocalizedText.ModRowId, Tag, Locale
 | Prefix | For |
 |---|---|
 | `LOC_MOD_NAJANE_MAP_TACKS_*` | The mod's own name and description |
+| `LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS` | ⚠️ The options **section heading**. Not a free choice — the game derives it from the group id in `najane-map-tacks-options.js`, and prints the raw key on screen if it is missing |
 | `LOC_OPTIONS_NAJANE_MAP_TACKS_*` | Options screen labels and descriptions |
 | `LOC_NAJANE_MAP_TACKS_*` | Everything else this mod draws |
 

@@ -2,8 +2,11 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS" Language="fr_FR">
+            <Text>Detailed Map Tacks</Text>
+        </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="fr_FR">
-            <Text>Appliquer les correctifs de Detailed Map Tacks</Text>
+            <Text>Appliquer les correctifs de Najane</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="fr_FR">
             <Text>Désactive tous les correctifs de ce mod sans le désinstaller. C'est la première chose à essayer si les punaises se comportent mal après une mise à jour de Detailed Map Tacks.</Text>

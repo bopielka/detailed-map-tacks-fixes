@@ -27,7 +27,28 @@ shared id `mods`, so several community mods land in one tab instead of each spaw
 Najane's other two mods do exactly the same and share the tab by construction. Do not rename
 the id.
 
-Inside it, this mod has its own heading: the group `najane_map_tacks`.
+Inside it, these options sit under the group `najane_map_tacks`.
+
+### ⚠️ The heading is named after the HOST, not after this mod
+
+It reads **"Detailed Map Tacks"**, so a player looking for map tack settings finds one section
+rather than two. That is as close to a real merge as the screen allows: the host adds nothing
+to the options screen at all — its only stored setting, the placement preview radius, lives in
+its own catalog (`MapTackStore.getSetting`) and is changed from inside
+`DMT_INTERFACEMODE_PLACE_MAP_TACKS`, never here. So there is no group to genuinely share, and
+the label is what does the merging. Attribution stays in the option labels ("Apply Najane's
+fixes"). If Detailed Map Tacks ever adds its own options, matching its group **id** would merge
+the two sections for real.
+
+### ⚠️ The group id generates the heading's localisation key
+
+`najane_map_tacks` → `LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS`. There is no fallback: if that key is
+missing, or the id is renamed without renaming the key, the options screen prints **the raw key
+as the section title**. That shipped in the first build and is exactly what it looks like:
+
+```
+LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS
+```
 
 ⚠️ **Order matters** — a group is laid out in the order its options are added.
 

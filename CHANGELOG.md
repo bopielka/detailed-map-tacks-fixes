@@ -74,6 +74,22 @@ whether the patch can be dropped or has to be re-checked.
   ⚠️ *The option is read per click, not at registration.* The decorator is registered whatever
   the setting says — deciding at load would leave the option doing nothing until a restart.
 
+### Changed
+
+- **The options now sit under a "Detailed Map Tacks" heading** instead of a separate block of
+  their own, so a player looking for map tack settings finds one section. The host adds nothing
+  to the options screen itself — its only stored setting, the placement preview radius, lives in
+  its own catalog and is changed from inside its placement mode — so there is no group to
+  genuinely share and the heading text is what does the merging. Attribution moved into the
+  label, which now reads "Apply Najane's fixes" rather than repeating the host's name under the
+  host's own heading.
+
+### Fixed (this mod's own bug)
+
+- **The options section printed `LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS` as its title.** ⚠️ The game
+  derives the heading's localisation key from the group id and has no fallback: a missing key is
+  shown raw on screen. The key was never added. It is now in all twelve locales.
+
 ### Removed
 
 - **Everything nothing reached.** `ui/support/dom.js` (four helpers, no caller — this mod draws

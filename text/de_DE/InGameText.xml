@@ -2,8 +2,11 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS" Language="de_DE">
+            <Text>Detailed Map Tacks</Text>
+        </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="de_DE">
-            <Text>Korrekturen für Detailed Map Tacks anwenden</Text>
+            <Text>Najanes Korrekturen anwenden</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="de_DE">
             <Text>Schaltet sämtliche Korrekturen dieser Mod ab, ohne sie zu deinstallieren. Das ist das Erste, was man versuchen sollte, wenn sich Kartennadeln nach einem Update von Detailed Map Tacks seltsam verhalten.</Text>

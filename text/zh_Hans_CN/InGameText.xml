@@ -2,8 +2,11 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS" Language="zh_Hans_CN">
+            <Text>Detailed Map Tacks</Text>
+        </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="zh_Hans_CN">
-            <Text>应用 Detailed Map Tacks 修复</Text>
+            <Text>应用 Najane 的修复</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="zh_Hans_CN">
             <Text>无需卸载即可关闭本模组的全部修复。若 Detailed Map Tacks 更新后地图图钉出现异常，请先尝试此项。</Text>

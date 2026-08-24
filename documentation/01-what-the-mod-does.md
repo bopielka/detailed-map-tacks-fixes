@@ -93,11 +93,11 @@ Removal itself goes through the host's own `RemoveMapTackRequest`, so the store,
 
 ## What the player sees today
 
-Two options, under **Options → Mods → Detailed Map Tacks Fixes by Najane**:
+Two options, under **Options → Mods → Detailed Map Tacks** (⚠️ the heading is named after the HOST, so map tack settings are one section — see [options](09-options-and-persistence.md)):
 
 | Option | Key | Default | Meaning |
 |---|---|---|---|
-| Apply Detailed Map Tacks fixes | `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | on | Skips the whole patch list. Read once, at load. |
+| Apply Najane's fixes | `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | on | Skips the whole patch list. Read once, at load. |
 | Remove map tacks with right-click | `LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK` | on | ⚠️ Read **per click**, so it takes effect at once. See [options](09-options-and-persistence.md). |
 
 And one line in `UI.log` on load, naming the build that is actually running:

@@ -32,11 +32,11 @@ host does wrong*, so that a patch can be dropped again once wltk fixes it upstre
 
 ## Options
 
-Under **Options → Mods → Detailed Map Tacks Fixes by Najane**:
+Under **Options → Mods → Detailed Map Tacks** — the same heading the host mod's settings would use, so there is one place to look:
 
 | Option | Default | What it does |
 |---|---|---|
-| Apply Detailed Map Tacks fixes | on | Turns every fix off without uninstalling the mod. The first thing to try if map tacks start misbehaving after a Detailed Map Tacks update. Takes effect on the next load. |
+| Apply Najane's fixes | on | Turns every fix off without uninstalling the mod. The first thing to try if map tacks start misbehaving after a Detailed Map Tacks update. Takes effect on the next load. |
 | Remove map tacks with right-click | on | Right-clicking a tack on the map deletes it. Takes effect at once. |
 
 ## Installing

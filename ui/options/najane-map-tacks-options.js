@@ -27,7 +27,19 @@ CategoryData[CategoryType.Mods] ??= {
     description: 'LOC_UI_CONTENT_MGR_SUBTITLE_DESCRIPTION',
 };
 
-/** This mod's own heading inside the shared "Mods" tab. */
+/**
+ * The heading these options sit under, inside the shared "Mods" tab.
+ *
+ * ⚠️ The heading TEXT is the host's name, "Detailed Map Tacks" - not this mod's - so a player
+ * looking for map tack settings finds one section rather than two. The host itself adds
+ * nothing to this screen (its only stored setting, the placement preview radius, is changed
+ * from inside its own placement mode), so there is no group to genuinely share; the label is
+ * what does the merging. Attribution stays visible in the option labels themselves.
+ *
+ * ⚠️ The game derives the heading's key from this id: `najane_map_tacks` ->
+ * `LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS`. Rename the id and the heading silently falls back to
+ * printing the raw key on screen, which is exactly what shipped in the first build.
+ */
 const OPTION_GROUP = 'najane_map_tacks';
 
 // ⚠️ Order matters: a group is laid out in the order its options are added.
