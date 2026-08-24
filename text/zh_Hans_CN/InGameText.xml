@@ -8,5 +8,11 @@
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="zh_Hans_CN">
             <Text>无需卸载即可关闭本模组的全部修复。若 Detailed Map Tacks 更新后地图图钉出现异常，请先尝试此项。</Text>
         </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="zh_Hans_CN">
+            <Text>右键删除地图图钉</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK_DESCRIPTION" Language="zh_Hans_CN">
+            <Text>在地图上右键点击图钉即可删除。Detailed Map Tacks 本身只能在图钉选择界面打开时用左键删除。该点击会被拦截，因此不会同时命令所选单位移动到该地块。</Text>
+        </Row>
     </LocalizedText>
 </Database>

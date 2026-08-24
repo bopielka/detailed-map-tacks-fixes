@@ -11,6 +11,10 @@ import { CategoryData } from '/core/ui/options/options-helpers.js';
  * absence into the main menu.
  */
 import { areFixesEnabled, setFixesEnabled } from '../engine/fixes-setting.js';
+import {
+    isRightClickRemoveEnabled,
+    setRightClickRemoveEnabled,
+} from '../engine/right-click-remove-setting.js';
 
 /**
  * ⚠️ The "Mods" category is not part of the base game, so it is created with `??=` under the
@@ -37,5 +41,16 @@ Options.addInitCallback(() => {
         updateListener: (_info, value) => setFixesEnabled(value),
         label: 'LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED',
         description: 'LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION',
+    });
+
+    Options.addOption({
+        category: CategoryType.Mods,
+        group: OPTION_GROUP,
+        type: OptionType.Checkbox,
+        id: 'najane-map-tacks-right-click-remove',
+        initListener: (info) => (info.currentValue = isRightClickRemoveEnabled()),
+        updateListener: (_info, value) => setRightClickRemoveEnabled(value),
+        label: 'LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK',
+        description: 'LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK_DESCRIPTION',
     });
 });

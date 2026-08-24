@@ -1,8 +1,10 @@
 [h2]0.1[/h2]
 [b]First release.[/b] An add-on for [b]Detailed Map Tacks[/b] by wltk - it patches that mod and does nothing without it.
 [list]
+[*] [b]Generic map tacks are now cleared when what they stand for gets built.[/b] Detailed Map Tacks removes a pin when the building it names is finished on that plot, but the check compares the two type names as text - so it only ever matched a pin for one specific building. A "culture building" or "wonder" pin could never match anything and stayed on the map for the rest of the game. It now disappears as soon as a building that fulfils it goes up, using the same list of buildings the pin's own tooltip shows you.
+[*] [b]Right-click a map tack on the map to delete it.[/b] Detailed Map Tacks on its own only deletes a tack on left-click, and only while the tack chooser is open. The click is swallowed, so it does not also send your selected unit walking to that tile. New option [b]Remove map tacks with right-click[/b], on by default.
+[*] Walls and other slotless buildings do not clear a pin, and a unique quarter pin waits for both of its buildings - a plan is only cleared when it is actually finished.
 [*] Requires Detailed Map Tacks. Declared as a hard dependency, so the fixes simply do not apply if that mod is missing or switched off.
 [*] New option under Options - Mods: [b]Apply Detailed Map Tacks fixes[/b], on by default. Turns every fix off without uninstalling this mod - the first thing to try if map tacks misbehave after a Detailed Map Tacks update.
 [*] Available in twelve languages.
 [/list]
-No fixes are shipped in this version yet - it is the groundwork for them.

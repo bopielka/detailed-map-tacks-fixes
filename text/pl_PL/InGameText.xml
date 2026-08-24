@@ -8,5 +8,11 @@
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="pl_PL">
             <Text>Wyłącza wszystkie poprawki tego moda bez odinstalowywania go. To pierwsza rzecz do sprawdzenia, jeśli pinezki zaczynają działać dziwnie po aktualizacji Detailed Map Tacks.</Text>
         </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="pl_PL">
+            <Text>Usuwaj pinezki PPM</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK_DESCRIPTION" Language="pl_PL">
+            <Text>Kliknięcie pinezki prawym przyciskiem myszy usuwa ją z mapy. Sam Detailed Map Tacks kasuje pinezkę wyłącznie lewym przyciskiem i tylko przy otwartym wyborze pinezek. Kliknięcie jest przechwytywane, więc nie wyda przy okazji rozkazu ruchu zaznaczonej jednostce.</Text>
+        </Row>
     </LocalizedText>
 </Database>

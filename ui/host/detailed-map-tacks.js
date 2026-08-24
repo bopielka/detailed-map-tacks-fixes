@@ -35,6 +35,7 @@ export const HOST_MODULES = {
     validator: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-validator.js`,
     yield: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-yield.js`,
     constants: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-constants.js`,
+    changeProcessor: `/${HOST_MOD_ID}/ui/map-tack-core/dmt-map-tack-change-processor.js`,
     iconsManager: `/${HOST_MOD_ID}/ui/plot-icons/dmt-map-tack-icons-manager.js`,
 };
 
@@ -47,7 +48,9 @@ export const HOST_MODULES = {
 export const HOST_COMPONENTS = {
     placePanel: 'dmt-panel-place-map-tack',
     chooser: 'dmt-map-tack-chooser',
-    icon: 'dmt-map-tack-icon',
+    // ⚠️ Plural. `MAP_TACK_ELEMENT_NAME` in the host is "dmt-map-tack-icons" - one component
+    // per PLOT, holding every tack on it, not one per tack.
+    icons: 'dmt-map-tack-icons',
 };
 
 /** The host's interface modes, by the names it registers in data/interface-modes.xml. */

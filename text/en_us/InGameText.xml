@@ -14,5 +14,11 @@
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION">
             <Text>Turns every fix in this mod off without uninstalling it. This is the first thing to try if map tacks start misbehaving after a Detailed Map Tacks update.</Text>
         </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK">
+            <Text>Remove map tacks with right-click</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK_DESCRIPTION">
+            <Text>Right-click a map tack on the map to delete it. Detailed Map Tacks on its own only deletes one on left-click, and only while the tack chooser is open. The click is swallowed, so it does not also order the selected unit to move there.</Text>
+        </Row>
     </EnglishText>
 </Database>

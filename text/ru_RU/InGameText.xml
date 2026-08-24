@@ -18,5 +18,11 @@
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="ru_RU">
             <Text>Вимикає всі виправлення цього мода, не видаляючи його. Це перше, що варто спробувати, якщо після оновлення Detailed Map Tacks мітки почали поводитися дивно.</Text>
         </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="ru_RU">
+            <Text>Видаляти мітки правою кнопкою</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK_DESCRIPTION" Language="ru_RU">
+            <Text>Клацання правою кнопкою миші на мітці видаляє її з карти. Сам Detailed Map Tacks прибирає мітку лише лівою кнопкою і тільки за відкритого вибору міток. Клацання перехоплюється, тож воно не накаже заразом вибраному загонові йти туди.</Text>
+        </Row>
     </LocalizedText>
 </Database>

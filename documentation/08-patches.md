@@ -5,7 +5,7 @@ The fixes, and the only place this mod changes anything.
 ## `patches.js` — the one list
 
 ```js
-const FIXES = [];   // { name, start }
+const FIXES = [ … ];   // { name, start }
 export function startPatches() { … }
 ```
 

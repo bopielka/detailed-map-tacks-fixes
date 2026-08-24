@@ -11,9 +11,24 @@ does nothing on its own.
 
 ## What it fixes
 
-Nothing yet — this is the scaffolding for the fixes, not the fixes. Each one will be listed
-here and in [`CHANGELOG.md`](CHANGELOG.md), which also records *what the host does wrong*, so
-that a patch can be dropped again once wltk fixes it upstream.
+**Generic map tacks are cleared when what they stand for gets built.** Detailed Map Tacks
+removes a pin once the building it names is finished on that plot — but it compares the two
+type names as text, so it only ever matched a pin for one *specific* building. A "culture
+building", "wonder" or "improvement" pin could never match anything and stayed on the map for
+the rest of the game. It now disappears as soon as a building that fulfils it goes up, using
+the same list of buildings the pin's own tooltip already shows you, plus the game's type tags
+for civ-unique buildings.
+
+Walls and other slotless buildings do not clear a pin, and a unique-quarter pin waits for both
+of its buildings: a plan is only cleared once it is genuinely finished.
+
+**Right-click a map tack on the map to delete it.** Detailed Map Tacks on its own only deletes a
+tack on left-click, and only while the tack chooser is open — its source carries wltk's own
+"TODO: Come up with a better quicker deletion solution." The click is swallowed, so deleting a
+tack does not also send your selected unit walking to that tile.
+
+Each fix is listed here and in [`CHANGELOG.md`](CHANGELOG.md), which also records *what the
+host does wrong*, so that a patch can be dropped again once wltk fixes it upstream.
 
 ## Options
 
@@ -21,7 +36,8 @@ Under **Options → Mods → Detailed Map Tacks Fixes by Najane**:
 
 | Option | Default | What it does |
 |---|---|---|
-| Apply Detailed Map Tacks fixes | on | Turns every fix off without uninstalling the mod. The first thing to try if map tacks start misbehaving after a Detailed Map Tacks update. |
+| Apply Detailed Map Tacks fixes | on | Turns every fix off without uninstalling the mod. The first thing to try if map tacks start misbehaving after a Detailed Map Tacks update. Takes effect on the next load. |
+| Remove map tacks with right-click | on | Right-clicking a tack on the map deletes it. Takes effect at once. |
 
 ## Installing
 

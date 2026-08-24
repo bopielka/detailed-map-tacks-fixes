@@ -8,20 +8,97 @@ It patches **Detailed Map Tacks** by wltk. It adds no features of its own.
 
 | Fix | What the host does wrong | Module |
 |---|---|---|
-| — | — | — |
+| Generic tacks are cleared when what they stand for is built | Its auto-removal compares tack type to built type as **strings**, so it only ever matches a concrete tack | `ui/patches/generic-tack-cleanup.js` |
+| Right-click a tack on the map to delete it | Deleting works on left-click only, and only while the chooser is open — the host's own `// TODO: Come up with a better quicker deletion solution.` | `ui/patches/right-click-remove.js` |
 
-**None yet.** This version is the scaffolding. Every fix added later gets a row here, a
-`{ name, start }` entry in `ui/patches/patches.js`, and an entry in `CHANGELOG.md` that names
-the host bug rather than only the remedy — that is the note that decides whether the patch can
-be dropped after a host update.
+Every fix added later gets a row here, a `{ name, start }` entry in `ui/patches/patches.js`,
+and an entry in `CHANGELOG.md` that names the host bug rather than only the remedy — that is
+the note that decides whether the patch can be dropped after a host update.
+
+### Generic tack cleanup
+
+Detailed Map Tacks removes a pin when the building it names gets built on that plot. It does
+that in `MapTackChangeProcessor.onConstructibleAdded`, which asks `MapTackStore.removeMapTack`
+for `{ x, y, type: <what was built> }`, and the store matches with
+`item.type == mapTackData.type`. For a concrete pin those two strings are equal. For a generic
+pin the type is `DMT_BUILDING_CULTURE` and never `BUILDING_MONUMENT`, so it can never match and
+the pin stays on the map forever.
+
+This mod listens to the same `ConstructibleAddedToMap` event and removes what the host missed.
+A generic pin is cleared when the building that appeared **fulfils what the pin promised**,
+decided by three signals in order:
+
+1. **The host's own matching list** — `MapTackGenerics.getMatchingConstructibles()`, derived
+   from `Constructible_Adjacencies`. This is also what the pin's tooltip prints, so the rule is
+   exactly what the player was shown. In Antiquity `DMT_BUILDING_CULTURE` is
+   {Amphitheater, Monument}, `DMT_BUILDING_SCIENCE` is {Academy, Library}, and so on for all
+   three ages.
+2. **The game's type tags** (`GameInfo.TypeTags`) — ⚠️ these exist only on **civ-unique**
+   buildings (7 `CULTURE` rows and 3 `SCIENCE` rows in the entire game: Mastaba, Parthenon,
+   Madrasa, Examination Hall…). A supplement, never a replacement — and the only signal
+   `DMT_BUILDING_DIPLOMACY` has at all, since it declares no adjacencies and so has an empty
+   host list.
+3. **Class** for the three class-wide pins — `DMT_BUILDING`, `DMT_WONDER`, `DMT_IMPROVEMENT`
+   are cleared by anything of that class.
+
+Two guards, both of which prevent taking a plan away that is not actually finished:
+
+- ⚠️ **Slotless buildings never count.** Walls and their kin are BUILDING class but are placed
+  on their own and consume no building slot. Without the guard, a wall going up would wipe
+  every "put a building here" pin in the city.
+- ⚠️ **The unique-quarter pin needs both halves.** A quarter is two buildings; clearing the pin
+  on the first would take the plan away half-done.
+
+⚠️ Nothing wider than these three signals. A removed pin is a piece of the player's plan gone
+and there is no undo, so under-removing is the survivable failure and over-removing is not.
+
+### Right-click removal
+
+`MapTackIcons.mapTackClickListener` deletes a tack on left-click **only while
+`DMT_INTERFACEMODE_MAP_TACK_CHOOSER` is open**; its `else` branch is the host's own
+`// TODO: Come up with a better quicker deletion solution.` Outside the chooser there is no way
+to remove a tack from the map at all.
+
+This decorates `dmt-map-tack-icons` and listens for `engine-input` **on the component**, which
+is the seam the framework provides rather than a race for a listener slot:
+
+```js
+// ContextManager.handleInput
+if (this.shouldSendEventToCursor(inputEvent) && Cursor.target instanceof HTMLElement) {
+    Cursor.target.dispatchEvent(inputEvent);
+    if (inputEvent.defaultPrevented) { return false; }   // the chain stops here
+}
+...
+return !this.engineInputEventHandlers.some((handler) => !handler.handleInput(inputEvent));
+```
+
+`world-input` is one of those `engineInputEventHandlers` and is reached last, so a
+`preventDefault()` from the component takes the click away from the world for certain.
+
+⚠️ **That suppression is not optional.** `WorldInput.actionMouseRightButton` never checks
+`Cursor.isOnUI` — it goes straight to `doActionOnPlot`. Without it, deleting a tack would also
+order the selected unit to walk to that plot.
+
+⚠️ **`START` is swallowed too**, doing nothing else: `actionMouseRightButton` draws the selected
+unit's destination path on `START` and only clears it on `FINISH`, so letting `START` through
+would strand a movement arrow on the map.
+
+⚠️ **The tack is identified by POSITION.** The host hangs no identity on the icons it builds, but
+`MapTackIcons.updateData` appends exactly one child per entry of `mapTackList`, in order. If the
+host ever appends anything else into that container this deletes the wrong tack — re-check
+`createItem` before assuming it still holds.
+
+Removal itself goes through the host's own `RemoveMapTackRequest`, so the store, the redraw and
+`CityCenterMapTackUpdated` are all handled by the host exactly as they are for its own delete.
 
 ## What the player sees today
 
-One option, under **Options → Mods → Detailed Map Tacks Fixes by Najane**:
+Two options, under **Options → Mods → Detailed Map Tacks Fixes by Najane**:
 
 | Option | Key | Default | Meaning |
 |---|---|---|---|
-| Apply Detailed Map Tacks fixes | `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | on | Skips the whole patch list. See [options](09-options-and-persistence.md). |
+| Apply Detailed Map Tacks fixes | `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | on | Skips the whole patch list. Read once, at load. |
+| Remove map tacks with right-click | `LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK` | on | ⚠️ Read **per click**, so it takes effect at once. See [options](09-options-and-persistence.md). |
 
 And one line in `UI.log` on load, naming the build that is actually running:
 

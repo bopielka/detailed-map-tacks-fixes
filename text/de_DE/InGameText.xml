@@ -8,5 +8,11 @@
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="de_DE">
             <Text>Schaltet sämtliche Korrekturen dieser Mod ab, ohne sie zu deinstallieren. Das ist das Erste, was man versuchen sollte, wenn sich Kartennadeln nach einem Update von Detailed Map Tacks seltsam verhalten.</Text>
         </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="de_DE">
+            <Text>Kartennadeln mit Rechtsklick entfernen</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK_DESCRIPTION" Language="de_DE">
+            <Text>Ein Rechtsklick auf eine Kartennadel löscht sie. Detailed Map Tacks allein löscht eine Nadel nur per Linksklick und nur bei geöffneter Nadelauswahl. Der Klick wird abgefangen und schickt die ausgewählte Einheit nicht zusätzlich dorthin.</Text>
+        </Row>
     </LocalizedText>
 </Database>

@@ -31,19 +31,27 @@ Inside it, this mod has its own heading: the group `najane_map_tacks`.
 
 ⚠️ **Order matters** — a group is laid out in the order its options are added.
 
-## The option
+## The options
 
-| Label | id | Type | Default |
-|---|---|---|---|
-| `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | `najane-map-tacks-fixes-enabled` | Checkbox | on |
+| Label | id | Type | Default | Backed by |
+|---|---|---|---|---|
+| `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | `najane-map-tacks-fixes-enabled` | Checkbox | on | `engine/fixes-setting.js` |
+| `LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK` | `najane-map-tacks-right-click-remove` | Checkbox | on | `engine/right-click-remove-setting.js` |
 
-It is the master switch, backed by `areFixesEnabled()` / `setFixesEnabled()` in
-`engine/fixes-setting.js`, and read once by `startPatches()`.
+### ⚠️ When a setting takes effect is a design decision, not an accident
 
-⚠️ **Changing it takes effect on the next load**, because `startPatches()` runs at script load
-and scripts load once per session. `FixesSettingChangedEventName` is dispatched for anything
-that wants to react live; nothing does yet. If a future fix can be undone cleanly, it should
-listen — and if it cannot, the option's description must not imply otherwise.
+The **master switch** is read once, by `startPatches()`, and so takes effect on the next load —
+`startPatches()` runs at script load and scripts load once per session. That is honest for what
+it does: it decides whether patches are *registered at all*, and a registered decorator cannot
+be un-registered.
+
+**Right-click removal** is read **per click**, inside the handler, and so takes effect
+immediately. Its decorator is registered whatever the setting says, precisely because deciding
+at registration time would leave the option doing nothing until a restart.
+
+⚠️ Any new option has to answer this question deliberately, and its description must not promise
+an immediacy the code does not deliver. `FixesSettingChangedEventName` and
+`RightClickRemoveSettingChangedEventName` exist for anything that wants to react live.
 
 ## How the value is stored
 

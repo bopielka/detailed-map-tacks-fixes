@@ -8,5 +8,11 @@
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="es_ES">
             <Text>Desactiva todas las correcciones de este mod sin desinstalarlo. Es lo primero que conviene probar si las chinchetas empiezan a comportarse mal tras una actualización de Detailed Map Tacks.</Text>
         </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="es_ES">
+            <Text>Eliminar chinchetas con clic derecho</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK_DESCRIPTION" Language="es_ES">
+            <Text>Haz clic derecho en una chincheta del mapa para borrarla. Detailed Map Tacks por sí solo únicamente las borra con clic izquierdo y solo con el selector de chinchetas abierto. El clic se intercepta, así que no ordena además a la unidad seleccionada que se mueva allí.</Text>
+        </Row>
     </LocalizedText>
 </Database>

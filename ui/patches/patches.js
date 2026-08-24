@@ -13,6 +13,8 @@
  * no game yet. A fix that needs one waits for its own engine event or component lifecycle.
  */
 import { isHostModPresent, HOST_MOD_ID } from '../host/detailed-map-tacks.js';
+import { startGenericTackCleanup } from './generic-tack-cleanup.js';
+import { startRightClickRemove } from './right-click-remove.js';
 import { areFixesEnabled } from '../engine/fixes-setting.js';
 import { log, warn } from '../support/diagnostics.js';
 
@@ -20,7 +22,10 @@ import { log, warn } from '../support/diagnostics.js';
  * Every fix, in registration order. `{ name, start }` - the name is what the log says when
  * the list is printed, so make it the bug, not the file.
  */
-const FIXES = [];
+const FIXES = [
+    { name: 'generic tacks are never cleared when what they stand for is built', start: startGenericTackCleanup },
+    { name: 'no way to delete a tack from the map outside the chooser', start: startRightClickRemove },
+];
 
 export function startPatches() {
     if (!isHostModPresent()) {
