@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="pt_BR">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="pt_BR">
-            <Text>Correções e pequenas melhorias para «Detailed Map Tacks», de wltk. Aquele mod é obrigatório – este sozinho não faz nada. Somente interface; nenhuma regra do jogo é alterada.</Text>
+            <Text>Mudanças opcionais para «Detailed Map Tacks», de wltk: marcadores genéricos somem assim que algo que os satisfaz é construído, e o botão direito apaga um marcador do mapa. Aquele mod é obrigatório – este sozinho não faz nada. Somente interface; nenhuma regra do jogo é alterada.</Text>
         </Row>
     </LocalizedText>
 </Database>

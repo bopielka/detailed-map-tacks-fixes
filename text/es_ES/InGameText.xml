@@ -6,10 +6,10 @@
             <Text>Detailed Map Tacks</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="es_ES">
-            <Text>Aplicar las correcciones de Najane</Text>
+            <Text>Aplicar los cambios de Najane</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="es_ES">
-            <Text>Desactiva todas las correcciones de este mod sin desinstalarlo. Es lo primero que conviene probar si las chinchetas empiezan a comportarse mal tras una actualización de Detailed Map Tacks.</Text>
+            <Text>Desactiva todos los cambios de este mod sin desinstalarlo. Es lo primero que conviene probar si las chinchetas empiezan a comportarse de forma extraña tras una actualización de Detailed Map Tacks.</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="es_ES">
             <Text>Eliminar chinchetas con clic derecho</Text>

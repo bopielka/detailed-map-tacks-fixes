@@ -1,8 +1,8 @@
 /**
- * Detailed Map Tacks Fixes by Najane - entry point.
+ * Detailed Map Tacks Tweaks by Najane - entry point.
  *
- * An add-on to "Detailed Map Tacks" by wltk. It has no screen and no features of its own:
- * everything it does is a patch to the host mod, and every patch is registered in
+ * An add-on to "Detailed Map Tacks" by wltk. It has no screen of its own: everything it does
+ * is a change to how the host behaves, and every one of them is registered in
  * patches/patches.js.
  *
  * The .modinfo lists only this file and the options module; everything else arrives by
@@ -24,7 +24,7 @@ if (DIAGNOSTICS) {
 
 /*
  * ⚠️ `warn`, not `log`, and it carries the build stamp. Scripts load ONCE, so a deploy made
- * mid-session changes the files and nothing else - a fix can be deployed and simply not be
+ * mid-session changes the files and nothing else - a change can be deployed and simply not be
  * running, with no sign of it from inside the game. This line names the running build.
  */
 warn(`loaded, build ${BUILD_STAMP}`);

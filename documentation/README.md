@@ -1,4 +1,4 @@
-# Developer documentation — Detailed Map Tacks Fixes by Najane
+# Developer documentation — Detailed Map Tacks Tweaks by Najane
 
 Written for an AI agent (or a human) starting a **new session** on this mod with no prior
 context. Read this file, then the document covering the area you are about to touch. Between
@@ -12,14 +12,14 @@ The repository's own `README.md` is the *player-facing* document. This folder is
 
 An **add-on** for Sid Meier's Civilization VII that patches another mod: **Detailed Map Tacks**
 by **wltk** (`detailed-map-tacks`). It has no screen and no features of its own — everything it
-does is a fix to the host, registered in `ui/patches/patches.js`. It declares the host as a
+does is a change to the host, registered in `ui/patches/patches.js`. It declares the host as a
 **hard dependency**, so it cannot run alone. UI only; `AffectsSavedGames = 0`.
 
 ## Read this first, in this order
 
 | # | Document | What it answers |
 |---|---|---|
-| 01 | [What the mod does](01-what-the-mod-does.md) | Every fix it ships, and which module implements it |
+| 01 | [What the mod does](01-what-the-mod-does.md) | Every change it ships, and which module implements it |
 | 02 | [Architecture](02-architecture.md) | The four layers, the dependency rule, load order, lifecycles |
 | 03 | [Platform notes](03-platform-notes.md) | `Controls`, decorators, DOM and engine quirks |
 | 04 | [The host mod](04-the-host-mod.md) | What Detailed Map Tacks is, how it is built, where its seams are |
@@ -31,7 +31,7 @@ Then the module documents, which mirror the folders under `ui/`:
 | 05 | [support](05-support.md) | `ui/support/` — logging, the build stamp |
 | 06 | [engine](06-engine.md) | `ui/engine/` — talking to the game, stored settings |
 | 07 | [host](07-host.md) | `ui/host/` — the single translation layer to the host mod |
-| 08 | [patches](08-patches.md) | `ui/patches/` — the fixes, and how to add one |
+| 08 | [patches](08-patches.md) | `ui/patches/` — the changes, and how to add one |
 | 09 | [options and persistence](09-options-and-persistence.md) | `ui/options/`, the master switch |
 | 10 | [localisation](10-localisation.md) | `text/<locale>/` |
 | 11 | [development workflow](11-development-workflow.md) | Deploying, checking, reading logs, conventions |

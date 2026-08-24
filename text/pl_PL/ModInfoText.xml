@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="pl_PL">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="pl_PL">
-            <Text>Poprawki i drobne ulepszenia do „Detailed Map Tacks” autorstwa wltk. Tamten mod jest wymagany - ten sam z siebie nie robi nic. Tylko interfejs; nie zmienia żadnych zasad gry.</Text>
+            <Text>Opcjonalne zmiany do „Detailed Map Tacks” autorstwa wltk: generyczne pinezki znikają, gdy powstanie coś, co je spełnia, a prawy przycisk myszy usuwa pinezkę z mapy. Tamten mod jest wymagany - ten sam z siebie nie robi nic. Tylko interfejs; nie zmienia żadnych zasad gry.</Text>
         </Row>
     </LocalizedText>
 </Database>

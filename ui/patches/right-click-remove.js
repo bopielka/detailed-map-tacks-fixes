@@ -1,10 +1,11 @@
 /**
  * Right-click a map tack on the map to delete it.
  *
- * ⚠️ THE HOST GAP, in its own words. `MapTackIcons.mapTackClickListener` deletes a tack on
- * left-click ONLY while the chooser interface mode is open, and its `else` branch reads
+ * ⚠️ WHAT THE HOST DOES TODAY, in its own words. `MapTackIcons.mapTackClickListener` deletes a
+ * tack on left-click ONLY while the chooser interface mode is open, and its `else` branch reads
  * `// TODO: Come up with a better quicker deletion solution.` Outside the chooser there is no
- * way to remove a tack from the map at all.
+ * way to remove a tack from the map at all. This is the missing half wltk left a note for, not
+ * a defect - which is why it is an option rather than a correction.
  *
  * ⚠️ THE HOOK IS `engine-input` ON THE COMPONENT, NOT A DOM MOUSE EVENT AND NOT A WINDOW
  * LISTENER. `ContextManager.handleInput` dispatches the event to `Cursor.target` - the element

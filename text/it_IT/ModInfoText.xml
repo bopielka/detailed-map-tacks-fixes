@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="it_IT">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="it_IT">
-            <Text>Correzioni e piccoli miglioramenti per «Detailed Map Tacks» di wltk. Quella mod è necessaria: questa da sola non fa nulla. Solo interfaccia; nessuna regola di gioco viene modificata.</Text>
+            <Text>Modifiche opzionali per «Detailed Map Tacks» di wltk: le puntine generiche spariscono appena viene costruito qualcosa che le soddisfa, e il clic destro elimina una puntina dalla mappa. Quella mod è necessaria: questa da sola non fa nulla. Solo interfaccia; nessuna regola di gioco viene modificata.</Text>
         </Row>
     </LocalizedText>
 </Database>

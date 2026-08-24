@@ -1,7 +1,7 @@
 # 04 — The host mod: Detailed Map Tacks
 
 Everything in this document is about **somebody else's code**. It is a map, not a
-specification — wltk owes this mod no stability. Re-read the source when a fix stops working.
+specification — wltk owes this mod no stability. Re-read the source when a change stops working.
 
 - **Mod id:** `detailed-map-tacks`
 - **Author:** wltk
@@ -87,5 +87,5 @@ this mod is deliberately not.
 ## Neighbours worth knowing about
 
 `bz-map-trix` names `detailed-map-tacks` in `<References>` and maps both of its interface modes
-to `dmt-map-tack-lens`. If a fix here touches lenses or interface modes, check that mod's
+to `dmt-map-tack-lens`. If a change here touches lenses or interface modes, check that mod's
 behaviour before blaming the host.

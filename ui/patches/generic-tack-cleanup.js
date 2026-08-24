@@ -1,20 +1,25 @@
 /**
- * Generic map tacks are never cleared when the thing they stand for gets built.
+ * Clear a generic map tack once something that fulfils it has been built.
  *
- * ⚠️ THE HOST BUG, exactly. `MapTackChangeProcessor.onConstructibleAdded` builds
+ * ⚠️ WHAT THE HOST DOES TODAY, exactly. `MapTackChangeProcessor.onConstructibleAdded` builds
  * `{ x, y, type: <the constructible that was built> }` and hands it to
  * `MapTackStore.removeMapTack`, whose `getIndexOfMapTack` matches with
  * `item.type == mapTackData.type` - a plain string comparison. A generic tack's type is
- * `DMT_BUILDING_CULTURE`, never `BUILDING_MONUMENT`, so it can never match and the pin
- * stays on the map forever. Concrete tacks work because for them the two strings ARE equal.
+ * `DMT_BUILDING_CULTURE`, never `BUILDING_MONUMENT`, so it never matches and the pin stays on
+ * the map. Concrete tacks clear because for them the two strings ARE equal.
  *
- * This mod cannot fix that in place: the host registered its handler with
+ * ⚠️ Whether that is a defect or a deliberate choice is wltk's call, not this mod's - a generic
+ * pin arguably means "something of this kind belongs here" for good. This module takes the
+ * other reading, that a pin is a plan and a finished plan should get out of the way, and it is
+ * switchable for exactly that reason.
+ *
+ * This mod cannot change it in place: the host registered its handler with
  * `engine.on("ConstructibleAddedToMap", this.onConstructibleAdded, this)`, which captured the
  * function object at subscription time - replacing the method on the singleton afterwards
  * changes nothing. So this listens to the same event itself and removes what the host missed,
  * then asks the host to redraw through its own `onPlotDetailsUpdated`.
  *
- * ⚠️ Drop this patch if a Detailed Map Tacks update starts clearing generic pins itself.
+ * ⚠️ Drop this module if a Detailed Map Tacks update starts clearing generic pins itself.
  */
 import { loadHostModule } from '../host/detailed-map-tacks.js';
 import { onEngineEvent } from '../engine/events.js';
@@ -209,7 +214,7 @@ export function startGenericTackCleanup() {
         const missing = Object.entries(host).filter(([, module]) => !module).map(([name]) => name);
         if (missing.length > 0) {
             host = null;
-            warn(`generic tack cleanup is off - the host did not give up: ${missing.join(', ')}`);
+            warn(`generic tack cleanup is off - the host did not hand over: ${missing.join(', ')}`);
             return;
         }
         onEngineEvent('ConstructibleAddedToMap', onConstructibleAdded);

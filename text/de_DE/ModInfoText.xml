@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="de_DE">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="de_DE">
-            <Text>Fehlerbehebungen und kleine Verbesserungen für „Detailed Map Tacks“ von wltk. Diese Mod wird benötigt – allein bewirkt diese hier nichts. Nur Benutzeroberfläche; es werden keine Spielregeln geändert.</Text>
+            <Text>Optionale Änderungen an „Detailed Map Tacks“ von wltk: allgemeine Nadeln verschwinden, sobald etwas Passendes gebaut wurde, und ein Rechtsklick löscht eine Nadel von der Karte. Diese Mod wird benötigt – allein bewirkt diese hier nichts. Nur Benutzeroberfläche; es werden keine Spielregeln geändert.</Text>
         </Row>
     </LocalizedText>
 </Database>

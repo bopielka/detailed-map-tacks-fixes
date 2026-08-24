@@ -11,7 +11,7 @@ registering it in one only makes the option disappear from the other.
 The main menu has **no game, no engine events, no DOM to speak of, and no host mod**. So:
 
 - The only imports of this mod's own code allowed here are near-leaves that do nothing at
-  import time. Today that is `engine/fixes-setting.js`, which builds a closure and stops.
+  import time. Today that is `engine/changes-setting.js`, which builds a closure and stops.
 - ⚠️ **Nothing from `host/` or `patches/` may be imported here.** It would drag the host's
   absence into the main menu, where the host is always absent.
 
@@ -37,7 +37,7 @@ to the options screen at all — its only stored setting, the placement preview 
 its own catalog (`MapTackStore.getSetting`) and is changed from inside
 `DMT_INTERFACEMODE_PLACE_MAP_TACKS`, never here. So there is no group to genuinely share, and
 the label is what does the merging. Attribution stays in the option labels ("Apply Najane's
-fixes"). If Detailed Map Tacks ever adds its own options, matching its group **id** would merge
+changes"). If Detailed Map Tacks ever adds its own options, matching its group **id** would merge
 the two sections for real.
 
 ### ⚠️ The group id generates the heading's localisation key
@@ -56,7 +56,7 @@ LOC_OPTIONS_GROUP_NAJANE_MAP_TACKS
 
 | Label | id | Type | Default | Backed by |
 |---|---|---|---|---|
-| `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | `najane-map-tacks-fixes-enabled` | Checkbox | on | `engine/fixes-setting.js` |
+| `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | `najane-map-tacks-changes-enabled` | Checkbox | on | `engine/changes-setting.js` |
 | `LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK` | `najane-map-tacks-right-click-remove` | Checkbox | on | `engine/right-click-remove-setting.js` |
 
 ### ⚠️ When a setting takes effect is a design decision, not an accident
@@ -71,8 +71,9 @@ immediately. Its decorator is registered whatever the setting says, precisely be
 at registration time would leave the option doing nothing until a restart.
 
 ⚠️ Any new option has to answer this question deliberately, and its description must not promise
-an immediacy the code does not deliver. `FixesSettingChangedEventName` and
-`RightClickRemoveSettingChangedEventName` exist for anything that wants to react live.
+an immediacy the code does not deliver. ⚠️ There is no settings-changed event to hook: the
+sibling mods dispatch one, this mod removed it because nothing could react to it. Add it back
+together with the first thing that could.
 
 ## How the value is stored
 

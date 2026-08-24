@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="ja_JP">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="ja_JP">
-            <Text>wltk 氏の「Detailed Map Tacks」の不具合修正と小さな改善。その MOD が必須で、これ単体では何もしません。UI のみで、ゲームのルールは変更しません。</Text>
+            <Text>wltk 氏の「Detailed Map Tacks」への任意の変更。汎用ピンは条件を満たす建物が建つと消え、右クリックでピンを削除できます。その MOD が必須で、これ単体では何もしません。UI のみで、ゲームのルールは変更しません。</Text>
         </Row>
     </LocalizedText>
 </Database>

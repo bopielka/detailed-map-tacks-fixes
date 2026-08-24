@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="es_ES">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="es_ES">
-            <Text>Correcciones y pequeñas mejoras para «Detailed Map Tacks» de wltk. Ese mod es imprescindible: este no hace nada por sí solo. Solo interfaz; no cambia ninguna regla del juego.</Text>
+            <Text>Cambios opcionales para «Detailed Map Tacks» de wltk: las chinchetas genéricas desaparecen en cuanto se construye algo que las cumple, y el clic derecho borra una chincheta del mapa. Ese mod es imprescindible: este no hace nada por sí solo. Solo interfaz; no cambia ninguna regla del juego.</Text>
         </Row>
     </LocalizedText>
 </Database>

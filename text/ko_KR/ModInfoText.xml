@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="ko_KR">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="ko_KR">
-            <Text>wltk의 「Detailed Map Tacks」를 위한 버그 수정과 작은 개선. 해당 모드가 반드시 필요하며, 이 모드 혼자서는 아무것도 하지 않습니다. UI 전용이며 게임 규칙은 바꾸지 않습니다.</Text>
+            <Text>wltk의 「Detailed Map Tacks」에 대한 선택적 변경. 범용 핀은 조건을 충족하는 건물이 세워지면 사라지고, 우클릭으로 핀을 삭제할 수 있습니다. 해당 모드가 반드시 필요하며, 이 모드 혼자서는 아무것도 하지 않습니다. UI 전용이며 게임 규칙은 바꾸지 않습니다.</Text>
         </Row>
     </LocalizedText>
 </Database>

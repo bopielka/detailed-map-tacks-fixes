@@ -48,7 +48,7 @@ second singleton, and a patch applied to it does nothing at all, silently.
 That is why every path lives in this one map. **Add a key here rather than writing a path into
 a patch.** ⚠️ Only the four modules something actually loads are listed; the host has more
 (validator, yield, ui-utils, constants, icons-manager) and they are mapped in
-[04 — The host mod](04-the-host-mod.md). Add one here when a fix reaches for it, not before.
+[04 — The host mod](04-the-host-mod.md). Add one here when a change reaches for it, not before.
 
 ## `isHostModPresent()`
 
@@ -63,5 +63,5 @@ cannot change afterwards, because scripts are loaded once per session.
 
 ⚠️ A false here should be impossible — the `.modinfo` `<Dependencies>` entry stops this mod
 applying without the host. Reaching it means the host failed to load, and that is the entire
-explanation for "the fixes mod does nothing", so `startPatches()` says so with `warn` rather
+explanation for "the changes mod does nothing", so `startPatches()` says so with `warn` rather
 than `log`.

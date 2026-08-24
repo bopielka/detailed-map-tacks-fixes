@@ -95,12 +95,12 @@ support  ←  engine  ←  host  ←  patches
 
 Never import upwards. `support/` and `engine/` are ordinary Civ VII code that knows nothing
 about the host and would survive it being replaced; `host/` is the single translation layer;
-`patches/` is the only place that fixes anything.
+`patches/` is the only place that changes anything.
 [`documentation/02-architecture.md`](documentation/02-architecture.md) has the rest.
 
 ⚠️ **`ui/options/` loads in SHELL scope too** — the options screen exists in the main menu,
 where there is no game, no DOM, no engine events and no host mod. A module it imports may
-reach no further than `ui/engine/fixes-setting.js`, and must do nothing at import time beyond
+reach no further than `ui/engine/changes-setting.js`, and must do nothing at import time beyond
 declaring itself. Importing anything from `host/` or `patches/` there would drag the host's
 absence into the main menu.
 
@@ -109,13 +109,13 @@ also what fixes load order:
 
 | File | Scope |
 |---|---|
-| `ui/detailed-map-tacks-fixes.js` | game — calls `startPatches()` and nothing else |
+| `ui/detailed-map-tacks-tweaks.js` | game — calls `startPatches()` and nothing else |
 | `ui/options/najane-map-tacks-options.js` | game **and** shell |
 
 Three choke points worth knowing before writing anything new:
 
-- **`ui/patches/patches.js`** — the one list of fixes. The master switch and the host check
-  are answered there, once, not inside each fix. What this mod does to the host can be read
+- **`ui/patches/patches.js`** — the one list of changes. The master switch and the host check
+  are answered there, once, not inside each change. What this mod does to the host can be read
   off that one file, which is the question a bug report actually asks.
 - **`ui/host/detailed-map-tacks.js`** — every path, component name and interface mode of the
   host, plus `loadHostModule()`.
@@ -123,7 +123,7 @@ Three choke points worth knowing before writing anything new:
   name however many listeners want it. Engine events are raised for **every player in the
   game**, so a handler must rule an event out cheaply and early; ⚠️ there is no owner filter
   here on purpose — the one subscriber checks the plot first, which is cheaper. Port
-  `onLocalPlayerEvent` from `../better-commerce-screen-ui` if a fix needs a real one.
+  `onLocalPlayerEvent` from `../better-commerce-screen-ui` if a change needs a real one.
 
 ## Rules that are easy to break
 
@@ -132,7 +132,7 @@ Three choke points worth knowing before writing anything new:
    before or after the host — `decorate` creates the component entry if it is missing.
    `Controls.define` on a host component name is the opposite: it replaces the host's
    definition outright and fights every other mod doing the same.
-2. **Do not fork the host.** Copying a host file in and fixing it there means the fix is
+2. **Do not fork the host.** Copying a host file in and editing it there means the change is
    frozen at today's host version and silently reverts a host update. Patch what is running.
 3. **Keep the FACT in a `⚠️` comment, not the story.** Each one records a bug that shipped, a
    measurement, or an approach that failed — keep that, drop the narrative around it. If you
@@ -144,7 +144,7 @@ Three choke points worth knowing before writing anything new:
    the reasoning; `STEAM_CHANGELOG.bbcode` carries one bullet per change and has a hard
    8000-character limit that `deploy.sh` enforces. When it is close, **drop the oldest version
    section** rather than trimming recent ones.
-6. **A fix needs the host bug written down.** `CHANGELOG.md` says what was wrong in the host,
+6. **A change needs the host's behaviour written down.** `CHANGELOG.md` says what was wrong in the host,
    not only what this mod now does — that is the note that says whether the patch can be
    dropped after a host update.
 7. **`TODO.md` says: "For AI agents: Don't edit this file unless asked. Don't implement TODOs
@@ -180,7 +180,7 @@ one carrying an opinion.
 ⚠️ **Nothing here is kept "for later".** There is no `dom.js`, no `storedChoice`, no owner
 filter and no unsubscribe path, because nothing calls them. Each of those exists in
 `../better-commerce-screen-ui`, is named in `documentation/` where it would go, and is a copy
-away when a fix first needs it. Add the facility with the caller, not before it.
+away when a change first needs it. Add the facility with the caller, not before it.
 
 ## Comments
 

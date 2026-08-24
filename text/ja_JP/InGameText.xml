@@ -6,10 +6,10 @@
             <Text>Detailed Map Tacks</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="ja_JP">
-            <Text>Najane の修正を適用する</Text>
+            <Text>Najane の変更を適用する</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="ja_JP">
-            <Text>この MOD の修正をすべて無効にします（アンインストール不要）。Detailed Map Tacks の更新後にマップピンの挙動がおかしい場合は、まずこれを試してください。</Text>
+            <Text>この MOD の変更をすべて無効にします（アンインストール不要）。Detailed Map Tacks の更新後にマップピンの挙動がおかしい場合は、まずこれを試してください。</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="ja_JP">
             <Text>右クリックでマップピンを削除</Text>

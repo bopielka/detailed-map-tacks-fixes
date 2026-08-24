@@ -25,7 +25,19 @@
 set -euo pipefail
 
 # --- configure ---------------------------------------------------------------
+#
+# MOD_ID is the <Mod id> from the .modinfo, and it is also the folder this deploys into.
+#
+# ⚠️ It keeps its original "-fixes-" spelling although the mod is now called Tweaks, and both
+# reasons are load-bearing: the id namespaces the player's stored options, and it names the
+# folder already sitting in the Mods directory. Renaming it would silently reset every toggle
+# and leave the old folder behind as a second, older copy of this mod that still loads.
+#
+# ⚠️ MODINFO is therefore NOT derived from MOD_ID. The game does not require the two to match -
+# 17 of the 50 Workshop mods installed on this machine have a .modinfo whose filename differs
+# from its <Mod id>, and they all load.
 MOD_ID="detailed-map-tacks-fixes-by-najane"
+MODINFO="detailed-map-tacks-tweaks-by-najane.modinfo"
 
 # Directories copied into the game, relative to this script.
 CONTENT_DIRS=(ui text config)
@@ -62,8 +74,8 @@ if [[ $- == *i* ]]; then
 fi
 
 # --- safety: never let a bad path turn this into a destructive command --------
-[[ -f "$SRC_DIR/$MOD_ID.modinfo" ]] \
-    || die "$MOD_ID.modinfo not found in $SRC_DIR - run this from the mod's own folder."
+[[ -f "$SRC_DIR/$MODINFO" ]] \
+    || die "$MODINFO not found in $SRC_DIR - run this from the mod's own folder."
 [[ "$(basename "$DEST_DIR")" == "$MOD_ID" ]] \
     || die "refusing to touch '$DEST_DIR' - it does not end in $MOD_ID."
 [[ -d "$DEST_ROOT" ]] \
@@ -76,7 +88,7 @@ say ""
 if [[ $DRY_RUN -eq 1 ]]; then
     say "[dry run] would remove the target folder and copy:"
     # `find` fails on content dirs this mod does not ship yet - not an error here.
-    ( cd "$SRC_DIR" && find "$MOD_ID.modinfo" "${CONTENT_DIRS[@]}" -type f 2>/dev/null | sort | sed 's/^/  /' ) || true
+    ( cd "$SRC_DIR" && find "$MODINFO" "${CONTENT_DIRS[@]}" -type f 2>/dev/null | sort | sed 's/^/  /' ) || true
     say ""
     say "[dry run] nothing was changed."
     exit 0
@@ -180,7 +192,7 @@ fi
 rm -rf "$DEST_DIR"
 mkdir -p "$DEST_DIR"
 
-cp "$SRC_DIR/$MOD_ID.modinfo" "$DEST_DIR/"
+cp "$SRC_DIR/$MODINFO" "$DEST_DIR/"
 for dir in "${CONTENT_DIRS[@]}"; do
     [[ -d "$SRC_DIR/$dir" ]] && cp -r "$SRC_DIR/$dir" "$DEST_DIR/"
 done
@@ -196,7 +208,7 @@ done
 # Logs/UI.log then answers "is the running game actually running this build?".
 #
 # Generated, never edited by hand, and not in git - see .gitignore. That last part is why
-# this block cannot be skipped on either platform: ui/detailed-map-tacks-fixes.js imports
+# this block cannot be skipped on either platform: ui/detailed-map-tacks-tweaks.js imports
 # this file, so a deploy that does not write it ships a mod that fails to load.
 BUILD_STAMP=$(date '+%Y-%m-%d %H:%M:%S')
 cat > "$DEST_DIR/ui/support/build-stamp.js" <<EOF
@@ -217,7 +229,7 @@ while IFS= read -r item; do
         printf 'MISSING: %s (referenced by .modinfo)\n' "$item" >&2
         missing=$((missing + 1))
     fi
-done < <(grep -o '<\(Item\|File\)[^>]*>[^<]*</\(Item\|File\)>' "$DEST_DIR/$MOD_ID.modinfo" \
+done < <(grep -o '<\(Item\|File\)[^>]*>[^<]*</\(Item\|File\)>' "$DEST_DIR/$MODINFO" \
          | sed 's/<[^>]*>//g')
 
 count=$(find "$DEST_DIR" -type f | wc -l)

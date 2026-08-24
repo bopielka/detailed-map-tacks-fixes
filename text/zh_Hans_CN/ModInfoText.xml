@@ -8,10 +8,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="zh_Hans_CN">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="zh_Hans_CN">
-            <Text>为 wltk 的“Detailed Map Tacks”提供修复与小幅改进。必须安装该模组，本模组单独不起任何作用。仅修改界面，不改变任何游戏规则。</Text>
+            <Text>对 wltk 的“Detailed Map Tacks”的可选改动：通用图钉会在建成符合条件的建筑后自动消失，右键可从地图上删除图钉。必须安装该模组，本模组单独不起任何作用。仅修改界面，不改变任何游戏规则。</Text>
         </Row>
     </LocalizedText>
 </Database>

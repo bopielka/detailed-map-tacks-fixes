@@ -23,6 +23,15 @@ kept because it is what gets typed. Default targets:
 - **macOS** — `~/Library/Application Support/Civilization VII/Mods/`
 - **Windows** — `%LOCALAPPDATA%\Firaxis Games\Sid Meier's Civilization VII\Mods\`
 
+⚠️ **The `.modinfo` filename and the `<Mod id>` are deliberately different**, and `deploy.sh`
+carries them as two variables for that reason. The file is
+`detailed-map-tacks-tweaks-by-najane.modinfo`; the id — and therefore the deployed folder — is
+still `detailed-map-tacks-fixes-by-najane`. The id namespaces the player's stored options and
+names the folder already in the Mods directory, so renaming it would silently reset every toggle
+and leave the old folder behind as a second, older copy that still loads. The game does not
+require the two to match: 17 of the 50 Workshop mods installed on this machine differ, and they
+all load. **Do not "tidy" them back together.**
+
 It wipes and rebuilds the target — the repository is the source of truth and the mod folder is
 build output, so a file deleted here disappears there instead of lingering. Only the `.modinfo`
 and the content directories are copied; `README`, `.git` and notes stay out by construction.
@@ -76,7 +85,7 @@ deployed change appears to do nothing at all, check that first.
 
 1. `DIAGNOSTICS = false` in `ui/support/diagnostics.js`.
 2. `CHANGELOG.md` **and** `STEAM_CHANGELOG.bbcode`, in the same pass — the first carries the
-   cause and reasoning, the second one bullet per change. Every fix entry names **what the host
+   cause and reasoning, the second one bullet per change. Every change entry names **what the host
    does wrong**, not only what this mod now does.
 3. `<Properties><Version>` in the `.modinfo`. ⚠️ Leave `version` on `<Mod>` an integer ≥ 1: it
    is parsed as an int, so `version="0.1"` lands in `Mods.sqlite` as `0` and the game silently

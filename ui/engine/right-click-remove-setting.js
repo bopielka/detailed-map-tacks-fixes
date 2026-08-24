@@ -5,7 +5,7 @@
  * registered whatever this says - deciding at registration time would leave the option doing
  * nothing until the game was restarted.
  *
- * Same layer and same reason as fixes-setting.js: ⚠️ `ui/options/` also loads in SHELL scope,
+ * Same layer and same reason as changes-setting.js: ⚠️ `ui/options/` also loads in SHELL scope,
  * so the options module may import no further down than here, and nothing here may touch the
  * game at import time.
  */

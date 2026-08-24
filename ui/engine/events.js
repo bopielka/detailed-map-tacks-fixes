@@ -9,7 +9,7 @@
  * thousands of times to conclude that somebody else's scout moved. There is deliberately NO
  * owner filter here: this mod's one subscriber asks "does this plot hold any map tacks?"
  * first, which is a single object lookup and cheaper than resolving an owner - a payload
- * carrying only a `location` costs a map query to attribute. A fix that genuinely needs to
+ * carrying only a `location` costs a map query to attribute. A change that genuinely needs to
  * filter by player should port `onLocalPlayerEvent` back from
  * ../better-commerce-screen-ui/ui/engine/events.js rather than reinvent it.
  */

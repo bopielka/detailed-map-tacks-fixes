@@ -13,10 +13,10 @@
 <Database>
     <LocalizedText>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_NAME" Language="ru_RU">
-            <Text>Detailed Map Tacks Fixes by Najane</Text>
+            <Text>Detailed Map Tacks Tweaks by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_MAP_TACKS_DESCRIPTION" Language="ru_RU">
-            <Text>Виправлення та невеликі покращення для «Detailed Map Tacks» від wltk. Той мод обов'язковий — цей сам по собі не робить нічого. Лише інтерфейс; правила гри не змінюються.</Text>
+            <Text>Необов'язкові зміни до «Detailed Map Tacks» від wltk: загальні мітки зникають, щойно зведено щось, що їх задовольняє, а права кнопка миші видаляє мітку з карти. Той мод обов'язковий — цей сам по собі не робить нічого. Лише інтерфейс; правила гри не змінюються.</Text>
         </Row>
     </LocalizedText>
 </Database>

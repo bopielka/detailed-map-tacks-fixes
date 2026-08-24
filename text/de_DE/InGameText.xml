@@ -6,10 +6,10 @@
             <Text>Detailed Map Tacks</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="de_DE">
-            <Text>Najanes Korrekturen anwenden</Text>
+            <Text>Najanes Änderungen anwenden</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="de_DE">
-            <Text>Schaltet sämtliche Korrekturen dieser Mod ab, ohne sie zu deinstallieren. Das ist das Erste, was man versuchen sollte, wenn sich Kartennadeln nach einem Update von Detailed Map Tacks seltsam verhalten.</Text>
+            <Text>Schaltet sämtliche Änderungen dieser Mod ab, ohne sie zu deinstallieren. Das ist das Erste, was man versuchen sollte, wenn sich Kartennadeln nach einem Update von Detailed Map Tacks seltsam verhalten.</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="de_DE">
             <Text>Kartennadeln mit Rechtsklick entfernen</Text>

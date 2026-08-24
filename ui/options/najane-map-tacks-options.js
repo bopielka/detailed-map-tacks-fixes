@@ -6,11 +6,11 @@ import { CategoryData } from '/core/ui/options/options-helpers.js';
  * ⚠️ This file loads in SHELL scope as well as in game - the options screen exists in the
  * main menu, where there is no game, no engine events and no host mod. So the only imports
  * of this mod's own code allowed here are near-leaves that do nothing at import time:
- * `fixes-setting.js` builds a closure and stops, and reads the stored value on the first
+ * `changes-setting.js` builds a closure and stops, and reads the stored value on the first
  * question asked. Importing anything from host/ or patches/ here would drag the host's
  * absence into the main menu.
  */
-import { areFixesEnabled, setFixesEnabled } from '../engine/fixes-setting.js';
+import { areChangesEnabled, setChangesEnabled } from '../engine/changes-setting.js';
 import {
     isRightClickRemoveEnabled,
     setRightClickRemoveEnabled,
@@ -48,9 +48,9 @@ Options.addInitCallback(() => {
         category: CategoryType.Mods,
         group: OPTION_GROUP,
         type: OptionType.Checkbox,
-        id: 'najane-map-tacks-fixes-enabled',
-        initListener: (info) => (info.currentValue = areFixesEnabled()),
-        updateListener: (_info, value) => setFixesEnabled(value),
+        id: 'najane-map-tacks-changes-enabled',
+        initListener: (info) => (info.currentValue = areChangesEnabled()),
+        updateListener: (_info, value) => setChangesEnabled(value),
         label: 'LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED',
         description: 'LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION',
     });

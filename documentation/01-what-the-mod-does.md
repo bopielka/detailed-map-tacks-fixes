@@ -2,17 +2,21 @@
 
 ## In one line
 
-It patches **Detailed Map Tacks** by wltk. It adds no features of its own.
+It changes two things about how **Detailed Map Tacks** by wltk behaves. Both are optional.
 
-## The fixes it ships
+⚠️ **Neither is a bug report.** Whether a generic tack should clear at all is wltk's design
+call, and the deletion shortcut is a note wltk already left in the source. Keep that framing in
+every document here — it is what makes these usable as suggestions rather than complaints.
 
-| Fix | What the host does wrong | Module |
+## The changes it makes
+
+| Change | What the host does today | Module |
 |---|---|---|
-| Generic tacks are cleared when what they stand for is built | Its auto-removal compares tack type to built type as **strings**, so it only ever matches a concrete tack | `ui/patches/generic-tack-cleanup.js` |
-| Right-click a tack on the map to delete it | Deleting works on left-click only, and only while the chooser is open — the host's own `// TODO: Come up with a better quicker deletion solution.` | `ui/patches/right-click-remove.js` |
+| A generic tack is cleared once something that fulfils it is built | Its auto-removal compares tack type to built type as **strings**, so only a concrete tack ever matches | `ui/patches/generic-tack-cleanup.js` |
+| Right-click a tack on the map to delete it | Deleting works on left-click only, and only while the chooser is open — wltk's own `// TODO: Come up with a better quicker deletion solution.` | `ui/patches/right-click-remove.js` |
 
-Every fix added later gets a row here, a `{ name, start }` entry in `ui/patches/patches.js`,
-and an entry in `CHANGELOG.md` that names the host bug rather than only the remedy — that is
+Every change added later gets a row here, a `{ name, start }` entry in `ui/patches/patches.js`,
+and an entry in `CHANGELOG.md` that names the host's behaviour rather than only the remedy — that is
 the note that decides whether the patch can be dropped after a host update.
 
 ### Generic tack cleanup
@@ -97,7 +101,7 @@ Two options, under **Options → Mods → Detailed Map Tacks** (⚠️ the headi
 
 | Option | Key | Default | Meaning |
 |---|---|---|---|
-| Apply Najane's fixes | `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | on | Skips the whole patch list. Read once, at load. |
+| Apply Najane's changes | `LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED` | on | Skips the whole patch list. Read once, at load. |
 | Remove map tacks with right-click | `LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK` | on | ⚠️ Read **per click**, so it takes effect at once. See [options](09-options-and-persistence.md). |
 
 And one line in `UI.log` on load, naming the build that is actually running:
@@ -112,7 +116,7 @@ will tell you — scripts are loaded once.
 
 ## What it deliberately does not do
 
-- **It does not replace any host file.** Forking a host file freezes the fix at today's host
+- **It does not replace any host file.** Forking a host file freezes the change at today's host
   version and silently reverts whatever wltk changes next.
 - **It does not work without the host.** That is enforced by the `.modinfo`, not by intent;
   see [Architecture](02-architecture.md).

@@ -19,12 +19,12 @@ thousands of times to conclude that somebody else's scout moved.
 subscriber (`generic-tack-cleanup.js`) rules events out with "does this plot hold any map
 tacks?", which is one object lookup and *cheaper* than resolving an owner — a payload carrying
 only a `location` costs a map query to attribute. The host does not filter this event either.
-A fix that genuinely needs to filter by player should port `onLocalPlayerEvent` back from
+A change that genuinely needs to filter by player should port `onLocalPlayerEvent` back from
 `../better-commerce-screen-ui/ui/engine/events.js` rather than reinvent it.
 
 ⚠️ **Nothing unsubscribes**, so there are no handles. Scripts load once, patches start once and
 never stop. `stopEngineEvents` exists in the sibling mods for screens that mount and unmount;
-port it if a fix ever needs one.
+port it if a change ever needs one.
 
 `logEventStats()` prints per-event counts and milliseconds since the last call, with
 diagnostics on. It is the first measurement to take when the report is "the game runs slowly".
@@ -50,12 +50,12 @@ that could listen to it.
 
 ## The two settings
 
-`fixes-setting.js` — `areFixesEnabled()` / `setFixesEnabled()`, default **on**.
+`changes-setting.js` — `areChangesEnabled()` / `setChangesEnabled()`, default **on**.
 `right-click-remove-setting.js` — `isRightClickRemoveEnabled()` / `setRightClickRemoveEnabled()`,
 default **on**.
 
-It exists because of what this mod is. A fixes pack sits on top of somebody else's mod, and
-when the host updates a patch can go from fixing a bug to being the bug. One switch lets a
+It exists because of what this mod is. An add-on sits on top of somebody else's mod, and
+when the host updates, a change that improved it can become the thing in the way. One switch lets a
 player rule this mod out of a problem without unsubscribing from it — the difference between a
 useful report and "I removed everything and it went away".
 

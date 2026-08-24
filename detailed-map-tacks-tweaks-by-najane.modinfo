@@ -64,7 +64,7 @@
                 </UpdateText>
                 <UIScripts>
                     <Item>ui/options/najane-map-tacks-options.js</Item>
-                    <Item>ui/detailed-map-tacks-fixes.js</Item>
+                    <Item>ui/detailed-map-tacks-tweaks.js</Item>
                 </UIScripts>
             </Actions>
         </ActionGroup>

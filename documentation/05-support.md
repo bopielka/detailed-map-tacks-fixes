@@ -19,14 +19,14 @@ stand-alone one: `UI.log` also carries lines written by the host, and "the map t
 wrong" is a bug report that could belong to either mod. The tag is what tells them apart.
 
 Choosing between them: `warn` for anything a player might have to report or that explains
-silence — a missing host, a fix that failed to start, the build stamp. `log` for everything
+silence — a missing host, a change that failed to start, the build stamp. `log` for everything
 else. ⚠️ **Set `DIAGNOSTICS = false` before publishing.**
 
 ## There is no `dom.js`
 
-⚠️ Deliberately. Both sibling mods have one; this mod draws nothing of its own — its two fixes
+⚠️ Deliberately. Both sibling mods have one; this mod draws nothing of its own — its two changes
 work through the host's data and the host's own components — so a DOM helper module here would
-be four functions nobody calls. When a fix first builds an element, port what it needs from
+be four functions nobody calls. When a change first builds an element, port what it needs from
 `../better-commerce-screen-ui/ui/support/dom.js`, which carries the facts that matter:
 `replaceChildren` throws in this DOM, `appendChild` is the reliable append, and
 `data-tooltip-content` must go through one door so a "hide tooltips" option stays possible.

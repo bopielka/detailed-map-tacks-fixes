@@ -13,7 +13,7 @@ An arrow means "may import from". Nothing imports upwards.
 | support | `ui/support/` | Nothing. No game, no host, no other module of this mod except its own layer. |
 | engine | `ui/engine/` | The game — `engine.on`, `UI.getOption`, `GameContext`. Not the host. |
 | host | `ui/host/` | Detailed Map Tacks: its module paths, component names, interface modes, lens. |
-| patches | `ui/patches/` | Everything above, and the actual bugs. |
+| patches | `ui/patches/` | Everything above, and the host behaviour being changed. |
 
 `ui/options/` sits outside the stack on purpose — see the shell-scope rule below.
 
@@ -26,7 +26,7 @@ host component name would spread that knowledge into every module that logs.
 
 **`host/` must be the only file naming the host**, for the same reason in the other direction:
 a Workshop update to Detailed Map Tacks is not an event you get told about. It shows up as a
-fix that stopped working. Having one file to re-check against the host's source is the
+change that stopped working. Having one file to re-check against the host's source is the
 difference between a ten-minute update and an audit.
 
 ## Loading
@@ -36,14 +36,14 @@ what fixes the order — a module always runs before the module importing it.
 
 | File | Scope | Does |
 |---|---|---|
-| `ui/detailed-map-tacks-fixes.js` | game | `startPatches()`, the diagnostics hook, the build stamp line |
+| `ui/detailed-map-tacks-tweaks.js` | game | `startPatches()`, the diagnostics hook, the build stamp line |
 | `ui/options/najane-map-tacks-options.js` | game **and** shell | Registers the option |
 
 ### ⚠️ `ui/options/` loads in SHELL scope
 
 The options screen exists in the main menu, where there is **no game, no DOM, no engine events
 and no host mod**. A module the options file imports may therefore reach no further than
-`ui/engine/fixes-setting.js`, and must do nothing at import time beyond declaring itself.
+`ui/engine/changes-setting.js`, and must do nothing at import time beyond declaring itself.
 `storedSwitch` builds a closure and stops; the stored value is read lazily, on the first
 question asked.
 
@@ -80,18 +80,18 @@ merely coexists with. That is the wrong tool here. **Do not move the host down t
 Belt and braces on top of that: `isHostModPresent()` in `ui/host/detailed-map-tacks.js`, asked
 once by `startPatches()`. Reaching a false there means something stranger than a missing
 subscription — the host failed to load — and that is worth a `warn`, because it is the entire
-explanation for "the fixes mod does nothing".
+explanation for "the changes mod does nothing".
 
 ## The patch lifecycle
 
-1. The game loads `ui/detailed-map-tacks-fixes.js` (once per session).
+1. The game loads `ui/detailed-map-tacks-tweaks.js` (once per session).
 2. It calls `startPatches()`.
 3. `startPatches()` asks, in order: is the host here, is the master switch on, is there
-   anything registered. Each answer is asked **once, centrally** — a fix that has to remember
-   to ask is a fix that will forget.
-4. Each fix's `start()` runs inside its own `try`/`catch`. One broken fix must not take the
+   anything registered. Each answer is asked **once, centrally** — a change that has to remember
+   to ask is a change that will forget.
+4. Each change's `start()` runs inside its own `try`/`catch`. One broken change must not take the
    rest of the pack with it.
 
 ⚠️ Registration runs at **script load**. `Controls.decorate` is safe there whatever the load
-order; anything that reads the game is not — there may be no game yet. A fix needing one waits
+order; anything that reads the game is not — there may be no game yet. A change needing one waits
 for its own engine event or component lifecycle callback.

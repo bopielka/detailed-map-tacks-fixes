@@ -6,10 +6,10 @@
             <Text>Detailed Map Tacks</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED" Language="pl_PL">
-            <Text>Stosuj poprawki Najane</Text>
+            <Text>Stosuj zmiany Najane</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_ENABLED_DESCRIPTION" Language="pl_PL">
-            <Text>Wyłącza wszystkie poprawki tego moda bez odinstalowywania go. To pierwsza rzecz do sprawdzenia, jeśli pinezki zaczynają działać dziwnie po aktualizacji Detailed Map Tacks.</Text>
+            <Text>Wyłącza wszystkie zmiany tego moda bez odinstalowywania go. To pierwsza rzecz do sprawdzenia, jeśli pinezki zaczynają działać dziwnie po aktualizacji Detailed Map Tacks.</Text>
         </Row>
         <Row Tag="LOC_OPTIONS_NAJANE_MAP_TACKS_RIGHT_CLICK" Language="pl_PL">
             <Text>Usuwaj pinezki PPM</Text>
