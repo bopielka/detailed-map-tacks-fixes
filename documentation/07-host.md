@@ -13,6 +13,9 @@ this document is about using it.
 | `HOST_MOD_ID` | `'detailed-map-tacks'` |
 | `HOST_MODULES` (module-local) | Path per host module: `store`, `utils`, `generics`, `changeProcessor` |
 | `HOST_COMPONENTS` | `icons` — `dmt-map-tack-icons`, the component this mod decorates |
+| `HOST_INTERFACE_MODES` | `chooser`, `place` — the two modes the host registers |
+| `HOST_INPUT_ACTIONS` | `openPanel` — `open-map-tack-panel`, the action behind its hotkey |
+| `isMapTackModeActive()` | Is one of those two modes the current one |
 | `isHostModPresent()` | Is the host actually running |
 | `loadHostModule(key)` | A host module, or `null`, asynchronously |
 
@@ -51,6 +54,15 @@ a patch.** ⚠️ Only the four modules something actually loads are listed; the
 (validator, yield, ui-utils, constants, icons-manager) and they are mapped in
 [04 — The host mod](04-the-host-mod.md). Add one here when a change reaches for it, not before.
 
+## ⚠️ The host's modes allow no hotkeys
+
+`InterfaceMode.allowsHotKeys()` returns `false` for a handler that does not declare it, and
+neither `DMT_INTERFACEMODE_MAP_TACK_CHOOSER` nor `DMT_INTERFACEMODE_PLACE_MAP_TACKS` declares
+one. So while the tack menu is up, core's `sendHotkeyEvent` dispatches **no** `hotkey-*` window
+event - a patch that wants a key there has to act inside `HotkeyManager.handleInput`, which is
+what `patches/hotkey-toggles-panel.js` does. Declaring `allowsHotKeys()` on the host's handler
+would let every other hotkey through with it.
+
 ## `isHostModPresent()`
 
 Two answers, cheapest first:
@@ -71,7 +83,7 @@ than `log`.
 
 The host's generic tacks are **pseudo-types**: `DMT_BUILDING_CULTURE` and friends are not in
 `GameInfo.Constructibles`, so every table keyed by `ConstructibleType` misses them. That one
-fact is behind three of this mod's four changes — the host cannot clear a tack it cannot name,
+fact is behind three of this mod's five changes — the host cannot clear a tack it cannot name,
 cannot check terrain for a type with no rows, and cannot list examples for a tack with no
 adjacencies. Answering the question once, here, is what stops the three drifting apart.
 

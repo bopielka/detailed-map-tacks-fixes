@@ -17,6 +17,7 @@ import { startGenericTackCleanup } from './generic-tack-cleanup.js';
 import { startRightClickRemove } from './right-click-remove.js';
 import { startGenericTackTerrain } from './generic-tack-terrain.js';
 import { startGenericTackRepresentatives } from './generic-tack-representatives.js';
+import { startHotkeyTogglesPanel } from './hotkey-toggles-panel.js';
 import { areChangesEnabled } from '../engine/changes-setting.js';
 import { log, warn } from '../support/diagnostics.js';
 
@@ -29,6 +30,7 @@ const CHANGES = [
     { name: 'delete a tack from the map with right-click', start: startRightClickRemove },
     { name: 'let a generic tack sit on water and mountain where its members can', start: startGenericTackTerrain },
     { name: 'give the Influence tack the example buildings it has none of', start: startGenericTackRepresentatives },
+    { name: 'close the map tack panel with the same hotkey that opens it', start: startHotkeyTogglesPanel },
 ];
 
 export function startPatches() {

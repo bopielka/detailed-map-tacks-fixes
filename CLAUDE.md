@@ -217,3 +217,39 @@ can change under you between one Workshop update and the next.
 
 New localisation keys go into **all twelve** `text/<locale>/InGameText.xml` files.
 ⚠️ `text/ru_RU/` holds **Ukrainian**; see the note in the file.
+
+## ⚠️⚠️ STANDING RULE: build on the NEW UI system (`ui-next` / Solid), not the old one
+
+**The user's instruction, 2026-08-27.** It applies to every Civ VII mod in this folder.
+
+Civ VII ships **two** UI frameworks side by side, and Firaxis is migrating from the first to
+the second one screen at a time:
+
+| | old | new |
+|---|---|---|
+| Location | `ui/` | `ui-next/` |
+| Elements | `Controls.define` / `Controls.decorate` | Solid components, `ComponentRegistry.register` |
+| Tooltips | `TooltipManager.registerType` + `data-tooltip-style` | `Tooltip.Trigger` / `Content` / `Frame` / `Text` |
+
+**Anything NEW this mod builds goes on `ui-next`.** The old framework is where features go to
+die: it has no tooltip nesting, no lockable/interactive tooltips, and every screen still on it is
+a screen Firaxis may move next - and a move like that silently breaks anything hanging off the
+old element handles. F1rstDan's Cool UI lost its headline feature that exact way and it has
+stayed broken for two releases.
+
+### The one honest exception
+
+A panel the game still defines with `Controls.define` can only be reached with
+`Controls.decorate` or a prototype patch - there is no `ui-next` way to hook it, because it is
+not an `ui-next` component. That is a fact about the game, not a licence.
+
+So the rule in practice:
+
+- **hooking** an old-framework panel: use the old mechanism, there is no choice;
+- **building** anything of our own inside it - a tooltip, a row, a control, a panel: `ui-next`;
+- never register a **new** `TooltipManager` type, and never write a new `Controls.define`d
+  component, when a Solid one would do.
+
+⚠️ Before writing UI code, check which framework the target is actually on. Knowledge base
+`25-ui-next-solidjs.md` has the comparison, the tooltip API and the bridge
+(`defineLegacyComponent`) that lets an old-framework element host a Solid component.

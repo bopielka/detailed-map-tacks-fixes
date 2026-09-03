@@ -2,9 +2,9 @@
 
 ## In one line
 
-It changes four things about how **Detailed Map Tacks** by wltk behaves. All of it is optional.
+It changes five things about how **Detailed Map Tacks** by wltk behaves. All of it is optional.
 
-⚠️ Three of the four come from **one** fact: a generic tack is a pseudo-type the game has never
+⚠️ Three of the five come from **one** fact: a generic tack is a pseudo-type the game has never
 heard of, so every table keyed by `ConstructibleType` misses it. `ui/host/generic-tacks.js` is
 the single answer to "what does this tack stand for", and all three read it.
 
@@ -20,6 +20,7 @@ every document here — it is what makes these usable as suggestions rather than
 | Right-click a tack on the map to delete it | Deleting works on left-click only, and only while the chooser is open — wltk's own `// TODO: Come up with a better quicker deletion solution.` | `ui/patches/right-click-remove.js` |
 | A generic tack may sit on coast, navigable river and mountain | Its terrain gate needs a flag only a real `ConstructibleType` can raise, so a pseudo-type is refused everywhere on water | `ui/patches/generic-tack-terrain.js` |
 | The Influence tack lists example buildings, per age | It builds example lists from adjacencies only, and `DMT_BUILDING_DIPLOMACY` declares none — so its tooltip shows nothing | `ui/patches/generic-tack-representatives.js` |
+| The map tack hotkey closes the panel it opened | The key only ever opens; with the panel up it is inert, because the host's interface modes allow no hotkeys at all | `ui/patches/hotkey-toggles-panel.js` |
 
 Every change added later gets a row here, a `{ name, start }` entry in `ui/patches/patches.js`,
 and an entry in `CHANGELOG.md` that names the host's behaviour rather than only the remedy — that is
@@ -100,6 +101,32 @@ host ever appends anything else into that container this deletes the wrong tack 
 
 Removal itself goes through the host's own `RemoveMapTackRequest`, so the store, the redraw and
 `CityCenterMapTackUpdated` are all handled by the host exactly as they are for its own delete.
+
+### Hotkey toggle
+
+`open-map-tack-panel` — F2 unless the player rebound it — is intercepted by the host's own
+`HotkeyManager.handleInput` wrapper, which turns it into a `hotkey-open-map-tack-panel` window
+event; the host's mini-map decorator hears that and switches to
+`DMT_INTERFACEMODE_MAP_TACK_CHOOSER`. There is no close path on the key.
+
+⚠️ **With the panel open the key does not reach a listener at all.** Core's `sendHotkeyEvent`
+dispatches only `if (InterfaceMode.allowsHotKeys())`, and `allowsHotKeys()` returns `false` for
+any handler that does not declare it — neither of the host's two map tack modes does. Escape is
+the only way out today.
+
+This mod wraps `HotkeyManager.handleInput` a second time and, when one of those two modes is
+current, answers the action with `InterfaceMode.switchToDefault()` instead of passing it on.
+
+⚠️ **Granting `allowsHotKeys()` would have been the wrong fix** — it opens the gate for every
+other hotkey (`open-techs`, `quick-load`, …) while the tack menu is up.
+
+⚠️ **This is the one change in the mod that depends on load order.** The host's wrapper returns
+`false` for this action without calling on, so a wrapper installed underneath it never sees the
+key. `<LoadOrder>2000</LoadOrder>` puts this script after `dmt-hotkey-manager.js` and both wrap
+from `engine.whenReady.then`, so this one lands outside.
+
+⚠️ **From the placement mode it leaves the map tack UI altogether** rather than stepping back to
+the chooser. Escape is what steps back; a toggle key that only half-closes is not a toggle.
 
 ## What the player sees today
 

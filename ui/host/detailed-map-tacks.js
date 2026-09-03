@@ -18,6 +18,7 @@
  * host rather than a private copy. That only holds for the exact path spelling below; a
  * different spelling of the same file is a second module with a second singleton.
  */
+import { InterfaceMode } from '/core/ui/interface-modes/interface-modes.js';
 import { warn } from '../support/diagnostics.js';
 
 export const HOST_MOD_ID = 'detailed-map-tacks';
@@ -113,4 +114,39 @@ export function loadHostModule(key) {
     });
     loaded.set(key, pending);
     return pending;
+}
+
+/**
+ * The host's interface modes, declared in its `data/interface-modes.xml` and registered by
+ * `ui/interface-modes/dmt-*.js`. `chooser` is the tack menu; `place` is the mode entered from
+ * it once an item has been picked. Both run the host's `MapTackPlacement` view.
+ *
+ * ⚠️ Neither handler defines `allowsHotKeys()`, and `InterfaceMode.allowsHotKeys()` returns
+ * FALSE for a handler that does not - so while either mode is up, `HotkeyManager` dispatches
+ * no `hotkey-*` window event at all. A patch that wants a key while the panel is open has to
+ * act inside `handleInput`, not on the window event.
+ */
+export const HOST_INTERFACE_MODES = {
+    chooser: 'DMT_INTERFACEMODE_MAP_TACK_CHOOSER',
+    place: 'DMT_INTERFACEMODE_PLACE_MAP_TACKS',
+};
+
+/**
+ * The input actions the host adds in its `config/Input.xml`. `openPanel` is bound to F2 by
+ * default and is the one its own `ui/input/dmt-hotkey-manager.js` intercepts; the player may
+ * have rebound the key, which is exactly why this is the action name and not a key.
+ */
+export const HOST_INPUT_ACTIONS = {
+    openPanel: 'open-map-tack-panel',
+};
+
+/** Is one of the host's map tack interface modes the current one? */
+export function isMapTackModeActive() {
+    try {
+        const current = InterfaceMode.getCurrent();
+        return current === HOST_INTERFACE_MODES.chooser || current === HOST_INTERFACE_MODES.place;
+    } catch (error) {
+        warn(`could not read the current interface mode: ${error}`);
+        return false;
+    }
 }

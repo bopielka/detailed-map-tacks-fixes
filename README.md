@@ -36,6 +36,12 @@ lists a couple in its tooltip — Production shows Barracks and Blacksmith — b
 none. The list now comes from what actually pays Influence: Monument and Villa in Antiquity,
 Dungeon and Guildhall in Exploration, Opera House and Radio Station in Modern.
 
+**The map tack hotkey now closes the panel as well as opening it.** The key (F2 unless you
+rebound it) only ever opens the tack menu — pressing it again does nothing, because the tack
+interface modes let no hotkey through at all, so Escape was the only way out. The same key now
+closes it, and from the placement mode it leaves the tack UI completely (Escape still steps back
+to the menu).
+
 ⚠️ Neither of these is a bug report. Whether a generic tack should clear at all is a design
 call, and the deletion shortcut is a note wltk already left. Both are optional and both can be
 switched off — see below.

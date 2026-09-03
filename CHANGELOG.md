@@ -11,7 +11,42 @@ also the note that decides, after a Detailed Map Tacks update, whether a change 
 ⚠️ Written twice, in the same pass: this file carries the cause and the reasoning,
 `STEAM_CHANGELOG.bbcode` carries one bullet per change for the Workshop change-note box.
 
-## 0.2 — in progress
+## 0.3 — in progress
+
+### Added
+
+- **The map tack hotkey now closes the panel it opened.**
+
+  *What the host does today:* `ui/input/dmt-hotkey-manager.js` wraps
+  `HotkeyManager.handleInput` and answers `open-map-tack-panel` (F2 by default) with
+  `sendHotkeyEvent(name)`; its mini-map decorator hears the resulting
+  `hotkey-open-map-tack-panel` window event and switches to
+  `DMT_INTERFACEMODE_MAP_TACK_CHOOSER`. The key only ever opens. Pressing it again does not
+  even reach a listener: core's `sendHotkeyEvent` dispatches only
+  `if (InterfaceMode.allowsHotKeys())`, and `allowsHotKeys()` returns false for a handler that
+  does not declare it — neither `DMT_INTERFACEMODE_MAP_TACK_CHOOSER` nor
+  `DMT_INTERFACEMODE_PLACE_MAP_TACKS` declares one. So with the menu up the key is inert and
+  Escape is the only way out.
+
+  *Why change it:* a key that opens a panel is expected to close it, and every other panel
+  hotkey in the game behaves that way.
+
+  ⚠️ *The fix cannot be `allowsHotKeys`.* Declaring it on the host's mode handler would open
+  the gate for every hotkey — `open-techs`, `quick-load` and the rest — while the tack menu is
+  up. The close is decided inside `handleInput` instead, before the host's wrapper swallows the
+  action.
+
+  ⚠️ *This is the one change in the mod that depends on load order.* The host's wrapper returns
+  `false` for this action without calling on, so a wrapper installed underneath it never sees
+  the key. `<LoadOrder>2000</LoadOrder>` puts this script after `dmt-hotkey-manager.js`, and
+  both wrap from `engine.whenReady.then`, so ours is queued second and lands outside.
+
+  ⚠️ *From the placement mode it exits the map tack UI altogether* rather than stepping back to
+  the chooser — Escape is what steps back, and a toggle key that only half-closes is not a
+  toggle. Closing goes through `InterfaceMode.switchToDefault()`, the host's own Escape path,
+  so the chooser hides itself and the placement mode tears its overlays down as usual.
+
+## 0.2
 
 ### Added
 

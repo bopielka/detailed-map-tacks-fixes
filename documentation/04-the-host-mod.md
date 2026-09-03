@@ -72,6 +72,14 @@ CustomEvent. Its interface modes are `DMT_INTERFACEMODE_MAP_TACK_CHOOSER` and
 `DMT_INTERFACEMODE_PLACE_MAP_TACKS`; its lens is `dmt-map-tack-lens`. Listening is the least
 invasive patch there is, when it is enough.
 
+⚠️ **Neither mode handler declares `allowsHotKeys()`**, and core returns `false` for a handler
+that does not — so while either is current, `HotkeyManager.sendHotkeyEvent` dispatches no
+`hotkey-*` window event at all, the host's own `hotkey-open-map-tack-panel` included. A key
+wanted while the panel is open has to be caught in `HotkeyManager.handleInput`, which is where
+the host itself takes `open-map-tack-panel` (`ui/input/dmt-hotkey-manager.js`) and where
+`patches/hotkey-toggles-panel.js` wraps a second time. ⚠️ That wrapper only works from
+**outside** the host's — the host's returns `false` for the action without calling on.
+
 ### 4. `Controls.define` over one of its components
 
 Last resort. It replaces the host's definition and races every other mod with the same idea.

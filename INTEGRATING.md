@@ -256,6 +256,47 @@ the age, which is true and useless in a tooltip.
 
 ---
 
+## 5. Let the hotkey close the panel it opened
+
+**Where:** `ui/input/dmt-hotkey-manager.js`.
+
+**What happens today.** `open-map-tack-panel` is answered with `sendHotkeyEvent(name)`, the
+mini-map decorator hears `hotkey-open-map-tack-panel` and switches to
+`DMT_INTERFACEMODE_MAP_TACK_CHOOSER`. The key only opens. Pressed again it does nothing at all,
+and not because nobody listens: core's `sendHotkeyEvent` dispatches only
+`if (InterfaceMode.allowsHotKeys())`, and `allowsHotKeys()` returns `false` for a handler that
+does not declare it — neither of your two map tack modes does. Escape is the only way out.
+
+**The change.** In your own wrapper, before `sendHotkeyEvent`:
+
+```js
+case "open-map-tack-panel":
+    const current = InterfaceMode.getCurrent();
+    if (current == "DMT_INTERFACEMODE_MAP_TACK_CHOOSER" ||
+        current == "DMT_INTERFACEMODE_PLACE_MAP_TACKS") {
+        InterfaceMode.switchToDefault();
+    } else {
+        HotkeyManager.sendHotkeyEvent(name);
+    }
+    return false;
+```
+
+Inside your mod this is the whole change — this add-on has to wrap your wrapper from the
+outside to reach the same line, which is the only reason its own version is longer.
+
+⚠️ **Do not fix this by declaring `allowsHotKeys()` on the mode handlers.** That opens the gate
+for every hotkey — `open-techs`, `quick-load` and the rest — while the tack panel is up.
+
+⚠️ **`switchToDefault()` is your own Escape path**, so the chooser hides itself on
+`InterfaceModeChanged` and the placement mode tears its overlays down in `transitionFrom`. There
+is nothing extra to close.
+
+⚠️ **From the placement mode this exits the tack UI altogether** rather than stepping back to the
+chooser, which is what Escape already does. That is a choice, not a fact — stepping back would
+be defensible; a key that only half-closes would not.
+
+---
+
 ## Things I could not verify
 
 - Whether a generic tack *should* clear at all when fulfilled, and whether the unique-quarter
