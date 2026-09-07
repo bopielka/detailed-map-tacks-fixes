@@ -253,3 +253,27 @@ So the rule in practice:
 ⚠️ Before writing UI code, check which framework the target is actually on. Knowledge base
 `25-ui-next-solidjs.md` has the comparison, the tooltip API and the bridge
 (`defineLegacyComponent`) that lets an old-framework element host a Solid component.
+
+## ⚠️⚠️ STANDING RULE: DO NOT GUESS AT A BUG — LOG IT AND READ THE LOG
+
+**The user's instruction, 2026-09-07, after five wrong guesses in a row on one bug.** It applies to
+every mod in this folder.
+
+When something does not work and the cause is not *visible* in the code, the next step is a
+`warn()` at the decision point, a deploy, and a read of `UI.log` — **not** another hypothesis. This
+session proved it repeatedly: reasoning from the game's XML was wrong four times about one
+warehouse rule; a `ReferenceError` that emptied every badge sat in the log for twenty minutes while
+three theories were tried; a drag bug survived five explanations and was settled by one line of
+trace.
+
+- **Log at the decision, not at the entry.** The question is always "which branch did it take and
+  with what values", so print the values the branch turns on.
+- **Filter to the FAILING case.** A trace that prints the first row prints something that works and
+  says nothing. Print the rows that did not get the outcome.
+- **`log()` is silent here.** `support/diagnostics.js` ships `DIAGNOSTICS = false`, so a temporary
+  probe must use `warn()` or it will not reach `UI.log` at all.
+- **Read the log yourself.** It is at
+  `%LOCALAPPDATA%\Firaxis Games\Sid Meier's Civilization VII\Logs\UI.log` — check the
+  `loaded, build <stamp>` line first to be sure the running build is the one you deployed.
+- **Remove the probes once the answer is in**, and put the answer in a `⚠️` comment where the code
+  is, so the next session does not re-derive it.
