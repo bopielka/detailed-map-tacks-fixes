@@ -52,8 +52,14 @@ decided by three signals in order:
 3. **Class** for the three class-wide pins — `DMT_BUILDING`, `DMT_WONDER`, `DMT_IMPROVEMENT`
    are cleared by anything of that class.
 
-Two guards, both of which prevent taking a plan away that is not actually finished:
+Three guards, all of which prevent taking a plan away that is not actually finished:
 
+- ⚠️ **One finished building clears at most one pin.** A plot takes several pins and nothing
+  stops two of them being the same type — a quarter holds two buildings, so two "gold building"
+  pins on a plot is a normal plan. When several match, the **narrowest** goes: a Marketplace
+  fulfils "a gold building" and the class-wide "a building", and the specific pin is the one
+  that names what was built. Ties keep the earlier pin, which is also what the host's
+  `removeMapTack` does — its `getIndexOfMapTack` takes the first match.
 - ⚠️ **Slotless buildings never count.** Walls and their kin are BUILDING class but are placed
   on their own and consume no building slot. Without the guard, a wall going up would wipe
   every "put a building here" pin in the city.

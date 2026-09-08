@@ -18,8 +18,10 @@ names as text — so only a tack for one *specific* building ever matches. A "cu
 using the same list of buildings the tack's own tooltip already shows you, plus the game's type
 tags for civ-unique buildings.
 
-Walls and other slotless buildings do not clear a tack, and a unique-quarter tack waits for both
-of its buildings: a plan is only cleared once it is genuinely finished.
+One finished building clears at most one tack — two "gold building" tacks on a plot are two
+planned buildings, and the first Marketplace only finishes one of them. Walls and other slotless
+buildings do not clear a tack, and a unique-quarter tack waits for both of its buildings: a plan
+is only cleared once it is genuinely finished.
 
 **Right-click a map tack on the map to delete it.** On its own, Detailed Map Tacks deletes a
 tack on left-click and only while the tack chooser is open — its source carries wltk's own

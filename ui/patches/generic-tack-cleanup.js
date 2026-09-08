@@ -26,6 +26,7 @@ import {
     UNIQUE_QUARTER,
     isGenericTack,
     loadGenericTacks,
+    membersOf,
     standsFor,
 } from '../host/generic-tacks.js';
 import { onEngineEvent } from '../engine/events.js';
@@ -73,6 +74,30 @@ function fulfils(genericType, builtType, x, y) {
     return standsFor(genericType, builtType);
 }
 
+/**
+ * Which ONE of the tacks this building fulfils is the plan it finished.
+ *
+ * ⚠️ The narrowest, and ties go to the oldest. A plot holds several tacks and a Marketplace
+ * fulfils both "a gold building" and the class-wide "a building"; the specific tack is the
+ * plan that names what was actually built, so it is the one that is finished. `membersOf` is
+ * memoised per age, so this is a `Map` lookup and a `.size` per candidate.
+ *
+ * ⚠️ List order is placement order, so an earlier tack of the same type clears first - which
+ * is also what `removeMapTack` does, since its `getIndexOfMapTack` takes the FIRST match.
+ */
+function planFinishedBy(candidates) {
+    let best = candidates[0];
+    let bestSize = membersOf(best.type).size;
+    for (let i = 1; i < candidates.length; i++) {
+        const size = membersOf(candidates[i].type).size;
+        if (size < bestSize) {
+            best = candidates[i];
+            bestSize = size;
+        }
+    }
+    return best;
+}
+
 function onConstructibleAdded(data) {
     const x = data?.location?.x;
     const y = data?.location?.y;
@@ -113,19 +138,21 @@ function onConstructibleAdded(data) {
         return;
     }
 
-    const removed = [];
-    for (const tack of generic) {
-        if (!fulfils(tack.type, builtType, x, y)) {
-            continue;
-        }
-        try {
-            host.store.removeMapTack({ x, y, type: tack.type });
-            removed.push(tack.type);
-        } catch (error) {
-            warn(`could not remove the ${tack.type} tack on ${x},${y}: ${error}`);
-        }
+    /*
+     * ⚠️ ONE building finishes ONE plan, so at most one tack goes. Two "gold building" tacks
+     * on a plot are two planned buildings - a quarter holds two - and clearing both when the
+     * first Marketplace goes up takes away a plan the player has not built yet. Reported
+     * against 0.3, where this was a loop that removed every tack the building matched.
+     */
+    const candidates = generic.filter((tack) => fulfils(tack.type, builtType, x, y));
+    if (candidates.length === 0) {
+        return;
     }
-    if (removed.length === 0) {
+    const finished = planFinishedBy(candidates);
+    try {
+        host.store.removeMapTack({ x, y, type: finished.type });
+    } catch (error) {
+        warn(`could not remove the ${finished.type} tack on ${x},${y}: ${error}`);
         return;
     }
     /*
@@ -140,7 +167,7 @@ function onConstructibleAdded(data) {
     } catch (error) {
         warn(`could not ask the host to redraw ${x},${y}: ${error}`);
     }
-    log(`${builtType} on ${x},${y} cleared: ${removed.join(', ')}`);
+    log(`${builtType} on ${x},${y} cleared ${finished.type}` + (candidates.length > 1 ? ` (${candidates.length} matched)` : ''));
 }
 
 export function startGenericTackCleanup() {

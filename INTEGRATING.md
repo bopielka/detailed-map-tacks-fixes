@@ -78,17 +78,25 @@ isFulfilledBy(genericType, constructibleType) {
 
 ```js
 // dmt-map-tack-change-processor.js, in onConstructibleAdded, after removeMapTack
-for (const mapTack of MapTackStore.retrieveMapTacks(x, y).slice()) {
-    if (!MapTackGenerics.isGenericMapTack(mapTack.type)) continue;
-    if (MapTackUtils.isSlotless(mapTackData.type)) continue;
-    if (MapTackGenerics.isGenericUniqueQuarter(mapTack.type)) continue;   // see below
-    if (MapTackGenerics.isFulfilledBy(mapTack.type, mapTackData.type)) {
-        MapTackStore.removeMapTack({ x, y, type: mapTack.type });
+const CLASS_WIDE = ["DMT_BUILDING", "DMT_WONDER", "DMT_IMPROVEMENT"];
+let finished = null;
+if (!MapTackUtils.isSlotless(mapTackData.type)) {
+    for (const mapTack of MapTackStore.retrieveMapTacks(x, y)) {
+        if (!MapTackGenerics.isGenericMapTack(mapTack.type)) continue;
+        if (MapTackGenerics.isGenericUniqueQuarter(mapTack.type)) continue;   // see below
+        if (!MapTackGenerics.isFulfilledBy(mapTack.type, mapTackData.type)) continue;
+        // Narrowest match wins; ties keep the earlier tack.
+        if (!finished || (CLASS_WIDE.includes(finished) && !CLASS_WIDE.includes(mapTack.type))) {
+            finished = mapTack.type;
+        }
     }
+}
+if (finished) {
+    MapTackStore.removeMapTack({ x, y, type: finished });   // removes the first of that type
 }
 ```
 
-**Two guards that are worth keeping**, both learned the hard way:
+**Three guards that are worth keeping**, all learned the hard way:
 
 - ⚠️ **Slotless buildings must not count.** Walls are BUILDING class, are placed on their own and
   consume no building slot. Without the guard, a wall going up clears every "building here" tack
@@ -96,6 +104,11 @@ for (const mapTack of MapTackStore.retrieveMapTacks(x, y).slice()) {
 - ⚠️ **The unique-quarter tack needs both halves.** A quarter is two buildings; clearing it on
   the first takes the plan away half-done. Check the plot with `getConstructiblesAtPlot` against
   `getMatchingConstructibles("DMT_BUILDING_UNIQUE_QUARTER")` and require all of them.
+- ⚠️ **One finished building clears at most one tack.** A plot takes several tacks and nothing
+  stops two of them being the same type, so a loop that removes every match wipes both "gold
+  building" tacks when the first Marketplace goes up - a plan the player has not built yet. A
+  Marketplace also matches the class-wide `DMT_BUILDING`, which is why the narrowest match is
+  the one that goes. (This mod shipped the loop in 0.3 and it was reported within the day.)
 
 **Note for you specifically:** this mod has to listen to `ConstructibleAddedToMap` a second time,
 because you subscribed with `engine.on("ConstructibleAddedToMap", this.onConstructibleAdded, this)`

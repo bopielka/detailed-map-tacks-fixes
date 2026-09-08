@@ -11,7 +11,36 @@ also the note that decides, after a Detailed Map Tacks update, whether a change 
 ⚠️ Written twice, in the same pass: this file carries the cause and the reasoning,
 `STEAM_CHANGELOG.bbcode` carries one bullet per change for the Workshop change-note box.
 
-## 0.3 — in progress
+## 0.4 — in progress
+
+### Fixed (this mod's own bug)
+
+- **One finished building cleared every generic tack it matched, not one.**
+
+  *What went wrong:* the cleanup added in 0.1 looped over the plot's generic tacks and removed
+  each one the new building fulfilled. Nothing stops a plot holding two tacks of the same type —
+  a quarter is two buildings, so two "gold building" tacks on a plot is a normal plan — and the
+  first Marketplace wiped both. Reported against 0.3.
+
+  *The rule now:* one building finishes one plan, so at most one tack goes.
+
+  ⚠️ *When several match, the narrowest wins.* A Marketplace fulfils `DMT_BUILDING_GOLD` and also
+  the class-wide `DMT_BUILDING`; the specific tack is the one that names what was built.
+  Specificity is `membersOf(type).size` from `host/generic-tacks.js`, which is memoised per age,
+  so this costs a `Map` lookup per candidate.
+
+  ⚠️ *Ties keep the earlier tack*, which is also what the host does — `getIndexOfMapTack` takes
+  the first match, so `removeMapTack` on a duplicated type removes the oldest of them.
+
+  ⚠️ *One case is left open.* A concrete `BUILDING_MARKET` tack and a `DMT_BUILDING_GOLD` tack on
+  the same plot still both clear when a Marketplace is built: the host removes the concrete one
+  on the same event, and by the time this listener runs there is no way to see that it did. Only
+  the generic side is this mod's to count.
+
+  ⚠️ *Also corrected in `INTEGRATING.md`*, which carried the same loop in the snippet written for
+  wltk.
+
+## 0.3
 
 ### Added
 
