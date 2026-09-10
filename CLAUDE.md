@@ -141,8 +141,11 @@ Three choke points worth knowing before writing anything new:
    string and the module fails to load, taking the whole mod with it. Use quotes in CSS
    comments. `deploy.sh` checks for this.
 5. **The changelog is `STEAM_CHANGELOG.bbcode`, and it is the only one.** One bullet per change,
-   under a hard 8000-character limit that `deploy.sh` enforces. When it is close, **drop the oldest
-   version section** rather than trimming recent ones.
+   newest section first.
+   ⚠️ **THE FILE HAS NO LENGTH LIMIT** (user, 2026-09-10): only the NEWEST section is ever pasted
+   into the Workshop's change note, so this file is the archive and old sections are **never
+   deleted**. Any character limit `deploy.sh` enforces belongs to the DESCRIPTION, a different
+   file. Reading it the other way cost the sibling Commerce mod two old versions.
    ⚠️ There is no `CHANGELOG.md` (user's instruction, 2026-09-10). The REASONING does not
    belong in the bullets - it goes where it is useful: a `⚠️` comment beside the code it
    constrains, or a page under `documentation/`.
