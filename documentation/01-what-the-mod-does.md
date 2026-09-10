@@ -23,7 +23,7 @@ every document here — it is what makes these usable as suggestions rather than
 | The map tack hotkey closes the panel it opened | The key only ever opens; with the panel up it is inert, because the host's interface modes allow no hotkeys at all | `ui/patches/hotkey-toggles-panel.js` |
 
 Every change added later gets a row here, a `{ name, start }` entry in `ui/patches/patches.js`,
-and an entry in `CHANGELOG.md` that names the host's behaviour rather than only the remedy — that is
+and a changelog bullet that names the host's behaviour rather than only the remedy — that is
 the note that decides whether the patch can be dropped after a host update.
 
 ### Generic tack cleanup

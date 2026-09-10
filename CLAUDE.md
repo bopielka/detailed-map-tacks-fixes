@@ -140,11 +140,13 @@ Three choke points worth knowing before writing anything new:
 4. **No backtick inside a CSS template literal**, including in comments — it closes the
    string and the module fails to load, taking the whole mod with it. Use quotes in CSS
    comments. `deploy.sh` checks for this.
-5. **The changelog is written twice, in the same pass.** `CHANGELOG.md` carries the cause and
-   the reasoning; `STEAM_CHANGELOG.bbcode` carries one bullet per change and has a hard
-   8000-character limit that `deploy.sh` enforces. When it is close, **drop the oldest version
-   section** rather than trimming recent ones.
-6. **A change needs the host's behaviour written down.** `CHANGELOG.md` says what was wrong in the host,
+5. **The changelog is `STEAM_CHANGELOG.bbcode`, and it is the only one.** One bullet per change,
+   under a hard 8000-character limit that `deploy.sh` enforces. When it is close, **drop the oldest
+   version section** rather than trimming recent ones.
+   ⚠️ There is no `CHANGELOG.md` (user's instruction, 2026-09-10). The REASONING does not
+   belong in the bullets - it goes where it is useful: a `⚠️` comment beside the code it
+   constrains, or a page under `documentation/`.
+6. **A change needs the host's behaviour written down.** The bullet says what was wrong in the host,
    not only what this mod now does — that is the note that says whether the patch can be
    dropped after a host update.
 7. **`TODO.md` says: "For AI agents: Don't edit this file unless asked. Don't implement TODOs

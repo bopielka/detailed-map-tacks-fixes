@@ -40,7 +40,7 @@ host can be read off one file**, which is the question a report about it actuall
    suggestion to wltk rather than a complaint about his mod.
 4. **Register it** in `CHANGES` with a name that is the behaviour, not the file: the name is
    what the log prints.
-5. **Row in `documentation/01-what-the-mod-does.md`**, entry in `CHANGELOG.md` saying what the
+5. **Row in `documentation/01-what-the-mod-does.md`**, a changelog bullet saying what the
    host does today, bullet in `STEAM_CHANGELOG.bbcode`.
 6. **Cost check.** Map tacks are drawn per plot and the host already walks its whole tack list
    on several events; anything added inside that walk is multiplied by the number of tacks the

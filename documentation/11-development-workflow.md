@@ -84,7 +84,7 @@ deployed change appears to do nothing at all, check that first.
 ## Publishing
 
 1. `DIAGNOSTICS = false` in `ui/support/diagnostics.js`.
-2. `CHANGELOG.md` **and** `STEAM_CHANGELOG.bbcode`, in the same pass — the first carries the
+2. `STEAM_CHANGELOG.bbcode`, the only changelog — it carries the
    cause and reasoning, the second one bullet per change. Every change entry names **what the host
    does wrong**, not only what this mod now does.
 3. `<Properties><Version>` in the `.modinfo`. ⚠️ Leave `version` on `<Mod>` an integer ≥ 1: it
